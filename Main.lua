@@ -10,7 +10,7 @@ Luna:Notification({
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
-    LogoID = "88564307965115",
+    LogoID = "",
     LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
@@ -71,61 +71,14 @@ local Slider = Tab:CreateSlider({
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
-local camera = game.Workspace.CurrentCamera
-local flying = false
-local speed = 10
-
-local function startFlying()
-    local bodyVelocity = Instance.new("BodyVelocity")
-    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
-    bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
-    bodyVelocity.Parent = character.PrimaryPart
-
-    local bodyGyro = Instance.new("BodyGyro")
-    bodyGyro.MaxTorque = Vector3.new(0, 0, 0)
-    bodyGyro.P = 3000
-    bodyGyro.Parent = character.PrimaryPart
-
-    player.Character.Humanoid.PlatformStand = true
-
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if flying then
-            bodyVelocity.Velocity = (camera.CFrame.LookVector * speed)
-            bodyGyro.CFrame = CFrame.new(camera.CFrame.p, camera.CFrame.p + camera.CFrame.LookVector)
-        end
-    end)
-end
-
-local function stopFlying()
-    player.Character.Humanoid.PlatformStand = false
-    for _, v in pairs(character.PrimaryPart:GetChildren()) do
-        if v:IsA("BodyVelocity") or v:IsA("BodyGyro") then
-            v:Destroy()
-        end
-    end
-end
 
 local Slider = Tab:CreateSlider({
-    Name = "Fly Speed",
-    Range = {0, 500},
-    Increment = 1,
-    CurrentValue = 10,
+    Name = "Jump Power",
+    Range = {0, 200},
+    Increment = 5,
+    CurrentValue = humanoid.JumpPower,
     Callback = function(Value)
-        speed = Value
-    end
-})
-
-local Toggle = Tab:CreateToggle({
-    Name = "Fly Mode",
-    Description = "Toggle flying on/off",
-    CurrentValue = false,
-    Callback = function(Value)
-        flying = Value
-        if flying then
-            startFlying()
-        else
-            stopFlying()
-        end
+        humanoid.JumpPower = Value
     end
 })
 
