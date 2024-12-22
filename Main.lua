@@ -10,7 +10,7 @@ Luna:Notification({
 local Window = Luna:CreateWindow({
 	Name = "Celvyn",
 	Subtitle = "Beta",
-	LogoID = "73436256413697",
+	LogoID = "88564307965115",
 	LoadingEnabled = true,
 	LoadingTitle = "Celvyn hub",
 	LoadingSubtitle = "by @nz.cy",
@@ -34,6 +34,12 @@ local Window = Luna:CreateWindow({
 			Parameter = ""
 		}
 	}
+}}
+
+Window:CreateHomeTab({
+	SupportedExecutors = {},
+	DiscordInvite = "1234",
+	Icon = 1,
 })
 
 local Tab = Window:CreateTab({
