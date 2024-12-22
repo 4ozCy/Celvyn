@@ -68,83 +68,96 @@ local Slider = Tab:CreateSlider({
 	end
 })
 
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local camera = game.Workspace.CurrentCamera
 local flying = false
-local flySpeed = 50
-local flyGyro = nil
-local bodyVelocity = nil
+local speed = 10
 
-local FlySpeedSlider = Tab:CreateSlider({
+local Slider = Tab:CreateSlider({
     Name = "Fly Speed",
-    Range = {0, 200},
-    Increment = 5,
-    CurrentValue = flySpeed,
+    Range = {0, 500},
+    Increment = 1,
+    CurrentValue = 10,
     Callback = function(Value)
-        flySpeed = Value
-    end
-}, "FlySpeedSlider")
-
-local ToggleFly = Tab:CreateToggle({
-    Name = "Fly Mode",
-    Description = "Enable to fly",
-    CurrentValue = false,
-    Callback = function(Value)
-        flying = Value
-        toggleFly()
+        speed = Value
     end
 })
 
-local function toggleFly()
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-    
-    if flying then
-        createFlyGyroAndVelocity(humanoidRootPart)
-    else
-        removeFlyGyroAndVelocity()
+local Toggle = Tab:CreateToggle({
+    Name = "Fly Mode",
+    Description = "Toggle flying on/off",
+    CurrentValue = false,
+    Callback = function(Value)
+        flying = Value
+        if flying then
+            startFlying()
+        else
+            stopFlying()
+        end
     end
-end
+})
 
-local function createFlyGyroAndVelocity(humanoidRootPart)
-    flyGyro = Instance.new("BodyGyro")
-    bodyVelocity = Instance.new("BodyVelocity")
-
-    flyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
-    flyGyro.CFrame = humanoidRootPart.CFrame
-    flyGyro.P = 30000
-    flyGyro.D = 1000
-    flyGyro.Parent = humanoidRootPart
-
-    bodyVelocity.MaxForce = Vector3.new(400000, 400000, 400000)
+local function startFlying()
+    local bodyVelocity = Instance.new("BodyVelocity")
     bodyVelocity.Velocity = Vector3.new(0, 0, 0)
-    bodyVelocity.Parent = humanoidRootPart
+    bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+    bodyVelocity.Parent = character.PrimaryPart
 
-    while flying and humanoidRootPart do
-        local direction = Vector3.new(0, 0, 0)
-        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
-            direction = direction + humanoidRootPart.CFrame.LookVector
-        end
-        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) then
-            direction = direction - humanoidRootPart.CFrame.LookVector
-        end
-        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) then
-            direction = direction - humanoidRootPart.CFrame.RightVector
-        end
-        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
-            direction = direction + humanoidRootPart.CFrame.RightVector
-        end
+    local bodyGyro = Instance.new("BodyGyro")
+    bodyGyro.MaxTorque = Vector3.new(0, 0, 0)
+    bodyGyro.P = 3000
+    bodyGyro.Parent = character.PrimaryPart
 
-        bodyVelocity.Velocity = direction * flySpeed
-        flyGyro.CFrame = humanoidRootPart.CFrame
-        wait(0.1)
+    player.Character.Humanoid.PlatformStand = true
+
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if flying then
+            bodyVelocity.Velocity = (camera.CFrame.LookVector * speed)
+            bodyGyro.CFrame = CFrame.new(camera.CFrame.p, camera.CFrame.p + camera.CFrame.LookVector)
+        end
+    end)
+end
+
+local function stopFlying()
+    player.Character.Humanoid.PlatformStand = false
+    for _, v in pairs(character.PrimaryPart:GetChildren()) do
+        if v:IsA("BodyVelocity") or v:IsA("BodyGyro") then
+            v:Destroy()
+        end
     end
 end
 
-local function removeFlyGyroAndVelocity()
-    if flyGyro then
-        flyGyro:Destroy()
-    end
-    if bodyVelocity then
-        bodyVelocity:Destroy()
-    end
+local Button = Tab:CreateButton({
+	Name = "Permeant tptool",
+	Description = nil,
+    	Callback = function()
+local ToolName = "tptool "
+
+local function createTool()
+    local tool = Instance.new("Tool")
+    tool.Name = ToolName
+    tool.RequiresHandle = false
+    tool.CanBeDropped = false
+
+    tool.Parent = game.Players.LocalPlayer.Backpack
+
+    tool.Activated:Connect(function()
+        local player = game.Players.LocalPlayer
+        local mouse = player:GetMouse()
+        local targetPos = mouse.Hit.p
+
+        player.Character:MoveTo(targetPos)
+    end)
 end
+
+local function onCharacterAdded(character)
+    createTool()
+end
+			
+game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+createTool()
+    	end
+})
+
