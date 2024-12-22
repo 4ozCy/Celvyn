@@ -22,12 +22,12 @@ local Window = Luna:CreateWindow({
 
 	KeySystem = false,
 	KeySettings = {
-		Title = "Luna Example Key",
+		Title = "Celvyn hub Key",
 		Subtitle = "Key System",
-		Note = "Best Key System Ever! Also, Please Use A HWID Keysystem like Pelican, Luarmor etc. that provide key strings based on your HWID since putting a simple string is very easy to bypass",
-		SaveInRoot = false,
+		Note = "idk",
+		SaveInRoot = true,
 		SaveKey = true,
-		Key = {"Example Key"},
+		Key = {"Celvyn"},
 		SecondAction = {
 			Enabled = true,
 			Type = "Link",
@@ -39,7 +39,7 @@ local Window = Luna:CreateWindow({
 Window:CreateHomeTab({
 	SupportedExecutors = {},
 	DiscordInvite = "1234",
-	Icon = 1,
+	Icon = 2,
 })
 
 local Tab = Window:CreateTab({
