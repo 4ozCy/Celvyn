@@ -79,7 +79,7 @@ local Slider = Tab:CreateSlider({
 	Callback = function(Value)
 		flySpeed = Value
 	end
-}, "FlySpeed")
+})
 
 local Toggle = Tab:CreateToggle({
 	Name = "Fly Mode",
@@ -119,4 +119,4 @@ local Toggle = Tab:CreateToggle({
 			root.Velocity = Vector3.new(0, 0, 0)
 		end
 	end
-}, "FlyToggle")
+})
