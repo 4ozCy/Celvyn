@@ -34,7 +34,7 @@ local Window = Luna:CreateWindow({
 			Parameter = ""
 		}
 	}
-}}
+})
 
 Window:CreateHomeTab({
 	SupportedExecutors = {},
