@@ -66,57 +66,85 @@ local Slider = Tab:CreateSlider({
 			humanoid.WalkSpeed = Value
 		end
 	end
-}, "PlayerSpeed")
+})
 
 local flying = false
-local flySpeed = 16
+local flySpeed = 50
+local flyGyro = nil
+local bodyVelocity = nil
 
-local Slider = Tab:CreateSlider({
-	Name = "Fly Speed",
-	Range = {0, 200},
-	Increment = 1,
-	CurrentValue = 16,
-	Callback = function(Value)
-		flySpeed = Value
-	end
+local FlySpeedSlider = Tab:CreateSlider({
+    Name = "Fly Speed",
+    Range = {0, 200},
+    Increment = 5,
+    CurrentValue = flySpeed,
+    Callback = function(Value)
+        flySpeed = Value
+    end
+}, "FlySpeedSlider")
+
+local ToggleFly = Tab:CreateToggle({
+    Name = "Fly Mode",
+    Description = "Enable to fly",
+    CurrentValue = false,
+    Callback = function(Value)
+        flying = Value
+        toggleFly()
+    end
 })
 
-local Toggle = Tab:CreateToggle({
-	Name = "Fly Mode",
-	Description = nil,
-	CurrentValue = false,
-	Callback = function(Value)
-		flying = Value
-		local player = game.Players.LocalPlayer
-		local character = player.Character or player.CharacterAdded:Wait()
-		local root = character:WaitForChild("HumanoidRootPart")
+local function toggleFly()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    
+    if flying then
+        createFlyGyroAndVelocity(humanoidRootPart)
+    else
+        removeFlyGyroAndVelocity()
+    end
+end
 
-		if flying then
-			local UIS = game:GetService("UserInputService")
-			local moveDirection = Vector3.new(0, 0, 0)
+local function createFlyGyroAndVelocity(humanoidRootPart)
+    flyGyro = Instance.new("BodyGyro")
+    bodyVelocity = Instance.new("BodyVelocity")
 
-			local function updateDirection()
-				moveDirection = Vector3.new(0, 0, 0)
-				if UIS:IsKeyDown(Enum.KeyCode.W) or UIS:IsKeyDown(Enum.KeyCode.ButtonR2) then
-					moveDirection = moveDirection + root.CFrame.LookVector
-				end
-				if UIS:IsKeyDown(Enum.KeyCode.S) or UIS:IsKeyDown(Enum.KeyCode.ButtonL2) then
-					moveDirection = moveDirection - root.CFrame.LookVector
-				end
-				if UIS:IsKeyDown(Enum.KeyCode.A) or UIS:IsKeyDown(Enum.KeyCode.Thumbstick1) then
-					moveDirection = moveDirection - root.CFrame.RightVector
-				end
-				if UIS:IsKeyDown(Enum.KeyCode.D) or UIS:IsKeyDown(Enum.KeyCode.Thumbstick2) then
-					moveDirection = moveDirection + root.CFrame.RightVector
-				end
-			end
+    flyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+    flyGyro.CFrame = humanoidRootPart.CFrame
+    flyGyro.P = 30000
+    flyGyro.D = 1000
+    flyGyro.Parent = humanoidRootPart
 
-			while flying and root do
-				updateDirection()
-				root.Velocity = moveDirection * flySpeed
-				task.wait()
-			end
-			root.Velocity = Vector3.new(0, 0, 0)
-		end
-	end
-})
+    bodyVelocity.MaxForce = Vector3.new(400000, 400000, 400000)
+    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    bodyVelocity.Parent = humanoidRootPart
+
+    while flying and humanoidRootPart do
+        local direction = Vector3.new(0, 0, 0)
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
+            direction = direction + humanoidRootPart.CFrame.LookVector
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) then
+            direction = direction - humanoidRootPart.CFrame.LookVector
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) then
+            direction = direction - humanoidRootPart.CFrame.RightVector
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
+            direction = direction + humanoidRootPart.CFrame.RightVector
+        end
+
+        bodyVelocity.Velocity = direction * flySpeed
+        flyGyro.CFrame = humanoidRootPart.CFrame
+        wait(0.1)
+    end
+end
+
+local function removeFlyGyroAndVelocity()
+    if flyGyro then
+        flyGyro:Destroy()
+    end
+    if bodyVelocity then
+        bodyVelocity:Destroy()
+    end
+end
