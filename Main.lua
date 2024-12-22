@@ -43,21 +43,80 @@ Window:CreateHomeTab({
 })
 
 local Tab = Window:CreateTab({
-	Name = "Main",
+	Name = "Universe",
 	Icon = "view_in_ar",
 	ImageSource = "Material",
 	ShowTitle = true
 })
 
 local Label = Tab:CreateLabel({
-	Text = "Main",
+	Text = "Universe",
 	Style = 1
 })
 
-local Button = Tab:CreateButton({
-	Name = "test",
+local Slider = Tab:CreateSlider({
+	Name = "Player Speed",
+	Range = {0, 2000},
+	Increment = 1,
+	CurrentValue = 16,
+	Callback = function(Value)
+		local player = game.Players.LocalPlayer
+		if player and player.Character and player.Character:FindFirstChild("Humanoid") then
+			local humanoid = player.Character:FindFirstChild("Humanoid")
+			humanoid.WalkSpeed = Value
+		end
+	end
+}, "PlayerSpeed")
+
+local flying = false
+local flySpeed = 16
+
+local Slider = Tab:CreateSlider({
+	Name = "Fly Speed",
+	Range = {0, 200},
+	Increment = 1,
+	CurrentValue = 16,
+	Callback = function(Value)
+		flySpeed = Value
+	end
+}, "FlySpeed")
+
+local Toggle = Tab:CreateToggle({
+	Name = "Fly Mode",
 	Description = nil,
-    	Callback = function()
-         print("test")
-    	end
-})
+	CurrentValue = false,
+	Callback = function(Value)
+		flying = Value
+		local player = game.Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local root = character:WaitForChild("HumanoidRootPart")
+
+		if flying then
+			local UIS = game:GetService("UserInputService")
+			local moveDirection = Vector3.new(0, 0, 0)
+
+			local function updateDirection()
+				moveDirection = Vector3.new(0, 0, 0)
+				if UIS:IsKeyDown(Enum.KeyCode.W) or UIS:IsKeyDown(Enum.KeyCode.ButtonR2) then
+					moveDirection = moveDirection + root.CFrame.LookVector
+				end
+				if UIS:IsKeyDown(Enum.KeyCode.S) or UIS:IsKeyDown(Enum.KeyCode.ButtonL2) then
+					moveDirection = moveDirection - root.CFrame.LookVector
+				end
+				if UIS:IsKeyDown(Enum.KeyCode.A) or UIS:IsKeyDown(Enum.KeyCode.Thumbstick1) then
+					moveDirection = moveDirection - root.CFrame.RightVector
+				end
+				if UIS:IsKeyDown(Enum.KeyCode.D) or UIS:IsKeyDown(Enum.KeyCode.Thumbstick2) then
+					moveDirection = moveDirection + root.CFrame.RightVector
+				end
+			end
+
+			while flying and root do
+				updateDirection()
+				root.Velocity = moveDirection * flySpeed
+				task.wait()
+			end
+			root.Velocity = Vector3.new(0, 0, 0)
+		end
+	end
+}, "FlyToggle")
