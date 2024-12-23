@@ -20,7 +20,7 @@ local Window = Luna:CreateWindow({
         ConfigFolder = "Big Hub"
     },
 
-    KeySystem = true,
+    KeySystem = false,
     KeySettings = {
         Title = "Celvyn hub Key",
         Subtitle = "Key System",
