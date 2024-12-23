@@ -54,37 +54,45 @@ local Label = Tab:CreateLabel({
     Style = 1
 })
 
-local PlayerName = ""
+local PlayersList = {}
+local SelectedPlayer = nil
 
-local Input = Tab:CreateInput({
-	Name = "Enter Player username",
-	PlaceholderText = "Type player username here",
-	CurrentValue = "",
-	Numeric = false,
-	MaxCharacters = nil,
-	Enter = false,
-	Callback = function(Text)
-		PlayerName = Text
+local function UpdatePlayersList()
+	PlayersList = {}
+	for _, Player in pairs(game.Players:GetPlayers()) do
+		table.insert(PlayersList, Player.Name)
+	end
+	Dropdown:UpdateOptions(PlayersList)
+end
+
+local Dropdown = Tab:CreateDropdown({
+	Name = "Select Player",
+	Options = PlayersList,
+	CurrentOption = nil,
+	MultipleOptions = false,
+	Callback = function(Option)
+		SelectedPlayer = Option
 	end
 })
+
+game.Players.PlayerAdded:Connect(UpdatePlayersList)
+game.Players.PlayerRemoving:Connect(UpdatePlayersList)
+
+UpdatePlayersList()
 
 local Button = Tab:CreateButton({
 	Name = "Teleport",
 	Callback = function()
-		if PlayerName == "" then
-			print("No player name entered")
-			return
-		end
-
+		if SelectedPlayer == nil then return end
 		for _, Player in pairs(game.Players:GetPlayers()) do
-			if string.find(string.lower(Player.Name), string.lower(PlayerName)) then
+			if Player.Name == SelectedPlayer then
 				if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
 					local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 					if HumanoidRootPart then
 						HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
 					end
-					break
 				end
+				break
 			end
 		end
 	end
