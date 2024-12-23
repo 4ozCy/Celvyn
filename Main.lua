@@ -54,6 +54,35 @@ local Label = Tab:CreateLabel({
     Style = 1
 })
 
+local Input = Tab:CreateInput({
+	Name = "Dynamic Input Example",
+	PlaceholderText = "Input Placeholder",
+	CurrentValue = "",
+	Numeric = false,
+	MaxCharacters = nil,
+	Enter = false,
+	Callback = function(Text)
+		PlayerName = Text
+	end
+})
+
+local Button = Tab:CreateButton({
+	Name = "Teleport to Player",
+	Callback = function()
+		for _, Player in pairs(game.Players:GetPlayers()) do
+			if string.find(string.lower(Player.Name), string.lower(PlayerName)) then
+				if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+					local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					if HumanoidRootPart then
+						HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+					end
+					break
+				end
+			end
+		end
+	end
+})
+
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
     Range = {0, 2000},
