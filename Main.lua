@@ -55,19 +55,20 @@ local Label = Tab:CreateLabel({
 })
 
 local Input = Tab:CreateInput({
-	Name = "input username",
-	PlaceholderText = "placeholder",
+	Name = "Teleport To Player",
+        Description = nil,
+	PlaceholderText = "Username",
 	CurrentValue = "",
 	Numeric = false,
-	MaxCharacters = nil,
-	Enter = true,
+	MaxCharacters = 20,
+	Enter = false,
 	Callback = function(Text)
 		PlayerName = Text
 	end
 })
 
 local Button = Tab:CreateButton({
-	Name = "Teleport to Player",
+	Name = "Teleport",
 	Callback = function()
 		for _, Player in pairs(game.Players:GetPlayers()) do
 			if string.find(string.lower(Player.Name), string.lower(PlayerName)) then
