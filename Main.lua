@@ -55,12 +55,12 @@ local Label = Tab:CreateLabel({
 })
 
 local Input = Tab:CreateInput({
-	Name = "Dynamic Input Example",
-	PlaceholderText = "Input Placeholder",
+	Name = "input username",
+	PlaceholderText = "placeholder",
 	CurrentValue = "",
 	Numeric = false,
 	MaxCharacters = nil,
-	Enter = false,
+	Enter = true,
 	Callback = function(Text)
 		PlayerName = Text
 	end
