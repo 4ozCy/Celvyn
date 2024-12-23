@@ -25,11 +25,11 @@ local Window = Luna:CreateWindow({
         Title = "Celvyn hub Key",
         Subtitle = "Key System",
         Note = "idk",
-        SaveInRoot = true,
+        SaveInRoot = false,
         SaveKey = true,
         Key = {"Celvyn"},
         SecondAction = {
-            Enabled = true,
+            Enabled = false,
             Type = "Link",
             Parameter = ""
         }
