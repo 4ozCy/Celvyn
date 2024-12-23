@@ -54,13 +54,14 @@ local Label = Tab:CreateLabel({
     Style = 1
 })
 
+local PlayerName = ""
+
 local Input = Tab:CreateInput({
-	Name = "Teleport To Player",
-        Description = nil,
-	PlaceholderText = "Username",
+	Name = "Enter Player username",
+	PlaceholderText = "Type player username here",
 	CurrentValue = "",
 	Numeric = false,
-	MaxCharacters = 20,
+	MaxCharacters = nil,
 	Enter = false,
 	Callback = function(Text)
 		PlayerName = Text
@@ -70,6 +71,11 @@ local Input = Tab:CreateInput({
 local Button = Tab:CreateButton({
 	Name = "Teleport",
 	Callback = function()
+		if PlayerName == "" then
+			print("No player name entered")
+			return
+		end
+
 		for _, Player in pairs(game.Players:GetPlayers()) do
 			if string.find(string.lower(Player.Name), string.lower(PlayerName)) then
 				if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
