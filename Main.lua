@@ -9,7 +9,7 @@ Luna:Notification({
 
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
-    Subtitle = "Beta",
+    Subtitle = "Version: 0.0.1",
     LogoID = "119663846201777",
     LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
@@ -52,50 +52,6 @@ local Tab = Window:CreateTab({
 local Label = Tab:CreateLabel({
     Text = "Universe",
     Style = 1
-})
-
-local PlayersList = {}
-local SelectedPlayer = nil
-
-local function UpdatePlayersList()
-	PlayersList = {}
-	for _, Player in pairs(game.Players:GetPlayers()) do
-		table.insert(PlayersList, Player.Name)
-	end
-	Dropdown:UpdateOptions(PlayersList)
-end
-
-local Dropdown = Tab:CreateDropdown({
-	Name = "Select Player",
-	Options = PlayersList,
-	CurrentOption = nil,
-	MultipleOptions = false,
-	Callback = function(Option)
-		SelectedPlayer = Option
-	end
-})
-
-game.Players.PlayerAdded:Connect(UpdatePlayersList)
-game.Players.PlayerRemoving:Connect(UpdatePlayersList)
-
-UpdatePlayersList()
-
-local Button = Tab:CreateButton({
-	Name = "Teleport",
-	Callback = function()
-		if SelectedPlayer == nil then return end
-		for _, Player in pairs(game.Players:GetPlayers()) do
-			if Player.Name == SelectedPlayer then
-				if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
-					local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-					if HumanoidRootPart then
-						HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
-					end
-				end
-				break
-			end
-		end
-	end
 })
 
 local Slider = Tab:CreateSlider({
