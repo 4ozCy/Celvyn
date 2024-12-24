@@ -50,7 +50,7 @@ local Tab = Window:CreateTab({
 })
 
 local Label = Tab:CreateLabel({
-    Text = "Universe",
+    Text = "local",
     Style = 1
 })
 
@@ -112,4 +112,27 @@ local Button = Tab:CreateButton({
         game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
         createTool()
     end
+})
+
+local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296}
+local IsPlayingMusic = false
+local Sound
+
+local Toggle = Tab:CreateToggle({
+	Name = "Play Random Music",
+	CurrentValue = false,
+	Callback = function(Value)
+		IsPlayingMusic = Value
+		if IsPlayingMusic then
+			if not Sound then
+				Sound = Instance.new("Sound", game.Workspace)
+			end
+			Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
+			Sound:Play()
+		else
+			if Sound then
+				Sound:Stop()
+			end
+		end
+	end
 })
