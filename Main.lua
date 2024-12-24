@@ -43,16 +43,13 @@ Window:CreateHomeTab({
 })
 
 local Tab = Window:CreateTab({
-    Name = "Universe",
+    Name = "Main",
     Icon = "view_in_ar",
     ImageSource = "Material",
     ShowTitle = true
 })
 
-local Label = Tab:CreateLabel({
-    Text = "local",
-    Style = 1
-})
+Tab:CreateSection("Main")
 
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
@@ -113,6 +110,8 @@ local Button = Tab:CreateButton({
         createTool()
     end
 })
+
+Tab:CreateSection("Music")
 
 local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296}
 local IsPlayingMusic = false
