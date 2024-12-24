@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celvyn hub</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body id="code-display">
+    <script>
+        const url = "https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/Main.lua?" + new Date().getTime();
+        const body = document.getElementById("code-display");
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                body.textContent = data;
+            })
+            .catch(error => {
+                body.textContent = "Failed to load content: " + error.message;
+            });
+    </script>
+</body>
+</html>
