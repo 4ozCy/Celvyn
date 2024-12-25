@@ -116,22 +116,46 @@ Tab:CreateSection("Music")
 local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296}
 local IsPlayingMusic = false
 local Sound
+local Volume = 1
 
 local Toggle = Tab:CreateToggle({
-	Name = "Play Random Music",
-	CurrentValue = false,
-	Callback = function(Value)
-		IsPlayingMusic = Value
-		if IsPlayingMusic then
-			if not Sound then
-				Sound = Instance.new("Sound", game.Workspace)
-			end
-			Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
-			Sound:Play()
-		else
-			if Sound then
-				Sound:Stop()
-			end
-		end
-	end
+    Name = "Play Random Music",
+    CurrentValue = false,
+    Callback = function(Value)
+        IsPlayingMusic = Value
+        if IsPlayingMusic then
+            if not Sound then
+                Sound = Instance.new("Sound", game.Workspace)
+            end
+            local function playRandomMusic()
+                Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
+                Sound:Volume = Volume
+                Sound:Play()
+                Sound.Ended:Connect(function()
+                    if IsPlayingMusic then
+                        playRandomMusic()
+                    end
+                end)
+            end
+            playRandomMusic()
+        else
+            if Sound then
+                Sound:Stop()
+                Sound.SoundId = ""
+            end
+        end
+    end
+})
+
+local Slider = Tab:CreateSlider({
+    Name = "Volume",
+    Min = 0,
+    Max = 100,
+    Default = 1,
+    Callback = function(Value)
+        Volume = Value
+        if Sound then
+            Sound.Volume = Volume
+        end
+    end
 })
