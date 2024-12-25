@@ -9,7 +9,7 @@ Luna:Notification({
 
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
-    Subtitle = "Version: 0.0.1",
+    Subtitle = "Beta | 1.0",
     LogoID = "119663846201777",
     LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
@@ -151,7 +151,7 @@ local Slider = Tab:CreateSlider({
     Name = "Volume",
     Range = {0,100},
     Increment = 1,
-    CurrentValue = 1,
+    CurrentValue = Volume
     Callback = function(Value)
         Volume = Value
         if Sound then
