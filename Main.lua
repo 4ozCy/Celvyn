@@ -9,7 +9,7 @@ Luna:Notification({
 
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
-    Subtitle = "Beta | 1.0",
+    Subtitle = "Beta",
     LogoID = "119663846201777",
     LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
@@ -129,7 +129,7 @@ local Toggle = Tab:CreateToggle({
             end
             local function playRandomMusic()
                 Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
-                Sound:Volume = Volume
+                Sound.Volume = Volume
                 Sound:Play()
                 Sound.Ended:Connect(function()
                     if IsPlayingMusic then
@@ -150,7 +150,7 @@ local Toggle = Tab:CreateToggle({
 local Slider = Tab:CreateSlider({
     Name = "Volume",
     Range = {0,100},
-    Increment = 1,
+    Increment = 0.1,
     CurrentValue = Volume
     Callback = function(Value)
         Volume = Value
