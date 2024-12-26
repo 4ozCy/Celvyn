@@ -113,7 +113,7 @@ local Button = Tab:CreateButton({
 
 Tab:CreateSection("Music")
 
-local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296}
+local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296, 1841682637, 16190782181, 15689443663}
 local IsPlayingMusic = false
 local Sound
 local Volume = 1
@@ -172,7 +172,7 @@ Tab:CreateSection("Our function")
 
 local Button = bfTab:CreateButton({
 Name = "Spin fruit",
-Description = "2 hour Cool down",
+Description = "2 hour Cooldown",
 Callback = function()
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
    end
