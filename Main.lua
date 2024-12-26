@@ -163,7 +163,7 @@ local Slider = Tab:CreateSlider({
 
 local bfTab = Window:CreateTab({
     Name = "Blox Fruit",
-    Icon = "74201305622168",
+    Icon = "101873370290615",
     ImageSource = "Custom",
     ShowTitle = true
 })
