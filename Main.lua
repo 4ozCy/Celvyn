@@ -150,8 +150,8 @@ local Toggle = Tab:CreateToggle({
 local Slider = Tab:CreateSlider({
     Name = "Volume",
     Range = {0,100},
-    increment = 0.1,
-    CurrentValue = Volume
+    increment = 1,
+    CurrentValue = Volume,
     Callback = function(Value)
         Volume = Value
         if Sound then
