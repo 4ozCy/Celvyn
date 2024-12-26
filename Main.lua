@@ -113,7 +113,7 @@ local Button = Tab:CreateButton({
 
 Tab:CreateSection("Music")
 
-local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296, 1841682637, 16190782181, 15689443663, 16662833495, 16831105312, 68976836359, 6819593773}
+local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296, 1841682637, 16190782181, 15689443663, 16662833495, 16831105312, 6819593773}
 local IsPlayingMusic = false
 local Sound
 local Volume = 1
@@ -162,10 +162,10 @@ local Slider = Tab:CreateSlider({
 })
 
 local bfTab = Window:CreateTab({
-    Name = "Main",
-    Icon = "view_in_ar",
+    Name = "Blox Fruit",
+    Icon = "nutrition",
     ImageSource = "Material",
-    ShowTitle = true
+    ShowTitle = false
 })
 
 bfTab:CreateSection("Our function")
