@@ -177,3 +177,11 @@ Callback = function()
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
    end
 })
+
+local Button = bfTab:CreateButton({
+Name = "elite quest",
+Description = "if you didn't get quest = elite hunter not spawned yet",
+Callback = function()
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
+   end
+})
