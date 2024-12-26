@@ -160,3 +160,20 @@ local Slider = Tab:CreateSlider({
         end
     end
 })
+
+local bfTab = Window:CreateTab({
+    Name = "Blox fruit",
+    Icon = "apple",
+    ImageSource = "Lucide",
+    ShowTitle = true
+})
+
+Tab:CreateSection("Our function")
+
+local Button = bfTab:CreateButton({
+Name = "Spin fruit",
+Description = "2 hour Cool down",
+Callback = function()
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
+   end
+})
