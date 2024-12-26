@@ -162,13 +162,13 @@ local Slider = Tab:CreateSlider({
 })
 
 local bfTab = Window:CreateTab({
-    Name = "Blox fruit",
-    Icon = "nutrition",
+    Name = "Main",
+    Icon = "view_in_ar",
     ImageSource = "Material",
     ShowTitle = true
 })
 
-Tab:CreateSection("Our function")
+bfTab:CreateSection("Our function")
 
 local Button = bfTab:CreateButton({
 Name = "Spin fruit",
