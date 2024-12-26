@@ -116,6 +116,7 @@ Tab:CreateSection("Music")
 local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296}
 local IsPlayingMusic = false
 local Sound
+local Volume = 1
 
 local Toggle = Tab:CreateToggle({
     Name = "Play Random Music",
@@ -142,6 +143,19 @@ local Toggle = Tab:CreateToggle({
                 Sound:Stop()
                 Sound.SoundId = ""
             end
+        end
+    end
+})
+
+local Slider = Tab:CreateSlider({
+    Name = "Volume",
+    Range = {0,100},
+    increment = 0.1,
+    CurrentValue = Volume
+    Callback = function(Value)
+        Volume = Value
+        if Sound then
+            Sound.Volume = Volume
         end
     end
 })
