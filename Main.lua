@@ -124,12 +124,12 @@ local Toggle = Tab:CreateToggle({
     Callback = function(Value)
         IsPlayingMusic = Value
         if IsPlayingMusic then
-            if not Sound then
+            if not Sound or not Sound:IsDescendantOf(game.Workspace) then
                 Sound = Instance.new("Sound", game.Workspace)
             end
             local function playRandomMusic()
                 Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
-                Sound.Volume = 1
+                Sound.Volume = Volume
                 Sound:Play()
                 Sound.Ended:Connect(function()
                     if IsPlayingMusic then
@@ -141,7 +141,8 @@ local Toggle = Tab:CreateToggle({
         else
             if Sound then
                 Sound:Stop()
-                Sound.SoundId = ""
+                Sound:Destroy()
+                Sound = nil
             end
         end
     end
