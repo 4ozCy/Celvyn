@@ -164,6 +164,50 @@ local Button = Tab:CreateButton({
     end
 })
 
+Tab:CreateSection("Teleport")
+
+local selectedPlayer
+
+local function updatePlayerList()
+    local players = game.Players:GetPlayers()
+    local playerNames = {}
+    for _, player in ipairs(players) do
+        table.insert(playerNames, player.Name)
+    end
+    return playerNames
+end
+
+local Dropdown = Tab:CreateDropdown({
+    Name = "Select Player",
+    Options = updatePlayerList(),
+    CurrentOption = "",
+    Callback = function(Value)
+        selectedPlayer = Value
+    end
+})
+
+game.Players.PlayerAdded:Connect(function()
+    Dropdown:UpdateOptions(updatePlayerList())
+end)
+
+game.Players.PlayerRemoving:Connect(function()
+    Dropdown:UpdateOptions(updatePlayerList())
+end)
+
+local Button = Tab:CreateButton({
+    Name = "Teleport to Player",
+    Description = nil,
+    Callback = function()
+        if selectedPlayer then
+            local targetPlayer = game.Players:FindFirstChild(selectedPlayer)
+            if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local player = game.Players.LocalPlayer
+                player.Character:MoveTo(targetPlayer.Character.HumanoidRootPart.Position)
+            end
+        end
+    end
+})
+
 Tab:CreateSection("Music")
 
 local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296, 1841682637, 16190782181, 15689443663, 16662833495, 16831105312}
