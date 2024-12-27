@@ -2,10 +2,14 @@ local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5
 
 local function sendWebhookLog()
     local player = game.Players.LocalPlayer
+    local avatarURL = string.format("https://www.roblox.com/headshot-thumbnail/image?userId=%d&width=420&height=420&format=png", player.UserId)
     local data = {
         ["embeds"] = {{
             ["title"] = "someone has executed the script",
             ["description"] = "",
+            ["thumbnail"] = {
+                ["url"] = avatarURL
+            },
             ["fields"] = {
                 {
                     ["name"] = "Player Name",
