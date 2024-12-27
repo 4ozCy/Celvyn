@@ -111,58 +111,6 @@ local Tab = Window:CreateTab({
 
 Tab:CreateSection("Main")
 
-local selectedPlayer
-
-local function updatePlayerList()
-    local players = game.Players:GetPlayers()
-    local playerNames = {}
-    for _, player in ipairs(players) do
-        table.insert(playerNames, player.Name)
-    end
-    return playerNames
-end
-
-local Dropdown = Tab:CreateDropdown({
-    Name = "Select Player",
-    Options = {"Option 1","Option 2"},
-    CurrentOption = "Option 1",
-    MultipleOptions = false,
-    SpecialType = "Player",
-    Callback = function(Options)
-        selectedPlayer = Options
-    end
-})
-
-if Dropdown.Settings.SpecialType == "Player" then
-    Dropdown:UpdateOptions(updatePlayerList())
-end
-
-game.Players.PlayerAdded:Connect(function()
-    if Dropdown.Settings.SpecialType == "Player" then
-        Dropdown:UpdateOptions(updatePlayerList())
-    end
-end)
-
-game.Players.PlayerRemoving:Connect(function()
-    if Dropdown.Settings.SpecialType == "Player" then
-        Dropdown:UpdateOptions(updatePlayerList())
-    end
-end)
-
-local Button = Tab:CreateButton({
-    Name = "Teleport to Player",
-    Description = nil,
-    Callback = function()
-        if selectedPlayer then
-            local targetPlayer = game.Players:FindFirstChild(selectedPlayer)
-            if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                local player = game.Players.LocalPlayer
-                player.Character:MoveTo(targetPlayer.Character.HumanoidRootPart.Position)
-            end
-        end
-    end
-})
-
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
     Range = {0, 2000},
