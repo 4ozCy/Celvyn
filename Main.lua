@@ -131,7 +131,7 @@ local Dropdown = Tab:CreateDropdown({
     Callback = function(Options)
         selectedPlayer = Options
     end
-}, "Dropdown")
+})
 
 if Dropdown.Settings.SpecialType == "Player" then
     Dropdown:UpdateOptions(updatePlayerList())
