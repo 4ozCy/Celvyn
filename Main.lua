@@ -5,6 +5,7 @@ local function sendWebhookLog()
     local data = {
         ["embeds"] = {{
             ["title"] = "someone has executed the script",
+            ["description"] = "",
             ["fields"] = {
                 {
                     ["name"] = "Player Name",
