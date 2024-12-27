@@ -94,8 +94,6 @@ local Window = Luna:CreateWindow({
     }
 })
 
-ElementName.Settings
-
 Window:CreateHomeTab({
     SupportedExecutors = {},
     DiscordInvite = "1234",
