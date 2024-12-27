@@ -4,8 +4,8 @@ local function sendWebhookLog()
     local player = game.Players.LocalPlayer
     local data = {
         ["embeds"] = {{
-            ["title"] = "Celvyn Log",
-            ["description"] = player.Name .. " executed the Celvyn script.",
+            ["title"] = "Celvyn",
+            ["description"] = "someone has executed the script.",
             ["fields"] = {
                 {
                     ["name"] = "Player Name",
