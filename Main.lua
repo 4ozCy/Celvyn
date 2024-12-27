@@ -164,55 +164,6 @@ local Button = Tab:CreateButton({
     end
 })
 
-local flySpeed = 50
-local flying = false
-
-local function enableFly()
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoid = character:WaitForChild("Humanoid")
-    
-    flying = true
-    local bodyVelocity = Instance.new("BodyVelocity")
-    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
-    bodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
-    bodyVelocity.Parent = character.PrimaryPart
-
-    game:GetService("RunService").Stepped:Connect(function()
-        if flying then
-            bodyVelocity.Velocity = (workspace.CurrentCamera.CFrame.LookVector * flySpeed)
-        else
-            bodyVelocity:Destroy()
-        end
-    end)
-end
-
-local function disableFly()
-    flying = false
-end
-
-local Toggle = Tab:CreateToggle({
-    Name = "Enable Fly",
-    CurrentValue = false,
-    Callback = function(Value)
-        if Value then
-            enableFly()
-        else
-            disableFly()
-        end
-    end
-})
-
-local Slider = Tab:CreateSlider({
-    Name = "Fly Speed",
-    Range = {0, 200},
-    Increment = 1,
-    CurrentValue = flySpeed,
-    Callback = function(Value)
-        flySpeed = Value
-    end
-})
-
 Tab:CreateSection("Music")
 
 local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296, 1841682637, 16190782181, 15689443663, 16662833495, 16831105312}
