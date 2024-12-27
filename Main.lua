@@ -1,7 +1,6 @@
 local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5WGtnwtu1dKeFNEQEnYlmEc_j4_QPp9Gx_XkzUcZS9IDZv5VPHB2ji5J1vwYod"
 
 local function sendWebhookLog()
-    local httpService = game:GetService("HttpService")
     local player = game.Players.LocalPlayer
     local data = {
         ["embeds"] = {{
@@ -46,15 +45,23 @@ local function sendWebhookLog()
             }
         }}
     }
-    local jsonData = httpService:JSONEncode(data)
-    httpService:PostAsync(webhookURL, jsonData, Enum.HttpContentType.ApplicationJson)
+    local jsonData = game:GetService("HttpService"):JSONEncode(data)
+    local request = syn and syn.request or http_request
+    request({
+        Url = webhookURL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = jsonData
+    })
 end
 
 sendWebhookLog()
 
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
-Luna:Notification({ 
+Luna:Notification({
     Title = "Celvyn hub",
     Icon = "notifications_active",
     ImageSource = "Material",
@@ -68,12 +75,10 @@ local Window = Luna:CreateWindow({
     LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
-
     ConfigSettings = {
         RootFolder = nil,
         ConfigFolder = "Big Hub"
     },
-
     KeySystem = false,
     KeySettings = {
         Title = "Celvyn hub Key",
@@ -138,28 +143,22 @@ local Button = Tab:CreateButton({
     Description = nil,
     Callback = function()
         local ToolName = "tptool "
-
         local function createTool()
             local tool = Instance.new("Tool")
             tool.Name = ToolName
             tool.RequiresHandle = false
             tool.CanBeDropped = false
-
             tool.Parent = game.Players.LocalPlayer.Backpack
-
             tool.Activated:Connect(function()
                 local player = game.Players.LocalPlayer
                 local mouse = player:GetMouse()
                 local targetPos = mouse.Hit.p
-
                 player.Character:MoveTo(targetPos)
             end)
         end
-
         local function onCharacterAdded(character)
             createTool()
         end
-
         game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
         createTool()
     end
