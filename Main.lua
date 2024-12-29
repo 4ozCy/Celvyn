@@ -1,4 +1,4 @@
-local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5WGtnwtu1dKeFNEQEnYlmEc_j4_QPp9Gx_XkzUcZS9IDZv5VPHB2ji5J1vwYod"
+local webhookURL = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI5NDIxMTA5MjM4OTU2NDQ1Ny85QUtkZ2M1V0d0bnd0dTFkS2VGTkVRRW5ZbG1FY19qNF9RUHA5R3hfWGt6VWNaUzlJRFp2NVZQSEIyamk1SjF2d1lvZA"
 
 local function sendWebhookLog()
     local player = game.Players.LocalPlayer
