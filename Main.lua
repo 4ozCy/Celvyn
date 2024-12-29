@@ -29,7 +29,7 @@ local Window = Luna:CreateWindow({
         SecondAction = {
             Enabled = false,
             Type = "Link",
-            Parameter = "https://celvyn.vercel.app/getkey.html"
+            Parameter = ""
         }
     }
 })
@@ -48,6 +48,19 @@ local Tab = Window:CreateTab({
 })
 
 Tab:CreateSection("Main")
+
+local Button = Tab:CreateButton({
+   Name = "aimbot & esp",
+   Callback = function()
+local function get(url)
+    local script = game:HttpGet(url, true)
+    loadstring(script)()
+end
+
+get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/esp.lua")
+get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/aimbot.lua")
+  end
+})
 
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
@@ -100,6 +113,55 @@ local Button = Tab:CreateButton({
         end
         game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
         createTool()
+    end
+})
+
+local Button = Tab:CreateButton({
+   Name = "Rejoin",
+   Callback = function()
+    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId
+    end 
+)}
+
+local Button = Tab:CreateButton({
+   Name = "Server Hop",
+   Callback = function()
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function getServerList()
+    local servers = {}
+    local success, result = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+    if success then
+        for _, server in pairs(result.data) do
+            if server.playing < server.maxPlayers then
+                table.insert(servers, {id = server.id, players = server.playing})
+            end
+        end
+        table.sort(servers, function(a, b) return a.players < b.players end)
+    end
+    return servers
+end
+
+local function serverHop()
+    local servers = getServerList()
+    if #servers > 0 then
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[1].id, LocalPlayer)
+    else
+       Luna:Notification({
+    Title = "Celvyn hub",
+    Icon = "notifications_active",
+    ImageSource = "Material",
+    Content = "no server available"
+})
+    end
+end
+         
+serverHop()
     end
 })
 
