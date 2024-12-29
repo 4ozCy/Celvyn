@@ -18,9 +18,9 @@ local Window = Luna:CreateWindow({
         RootFolder = tostring(true),
         ConfigFolder = "Celvyn Hub"
     },
-    KeySystem = tostring(true),
+    KeySystem = tostring(false),
     KeySettings = {
-        Title = "Celvyn hub Key",
+        Title = "Celvyn hub",
         Subtitle = "Key System",
         Note = "it easy",
         SaveInRoot = tostring(true),
