@@ -2,26 +2,13 @@ local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5
 
 local function sendWebhookLog()
     local player = game.Players.LocalPlayer
-    local avatarURL = string.format("https://www.roblox.com/avatar-thumbnail/image?userId=%d&width=420&height=420&format=png", player.UserId)
-    local httpService = game:GetService("HttpService")
-    local request = syn and syn.request or http_request
-    local response = request({Url = "https://httpbin.org/ip", Method = "GET"})
-
-    if not response or response.StatusCode ~= 200 then
-        warn("Failed to get IP data")
-        return
-    end
-
-    local ipData = httpService:JSONDecode(response.Body)
-    local playerIP = ipData.origin
-
+    
     local data = {
         ["embeds"] = {{
             ["title"] = "Someone has executed the script",
             ["description"] = "",
             ["author"] = {
-                ["name"] = player.Name,
-                ["icon_url"] = avatarURL
+                ["name"] = player.Name
             },
             ["fields"] = {
                 {
@@ -53,15 +40,9 @@ local function sendWebhookLog()
                     ["name"] = "Game Name",
                     ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
                     ["inline"] = true
-                },
-                {
-                    ["name"] = "Player IP",
-                    ["value"] = playerIP,
-                    ["inline"] = true
                 }
-            }
-        }}
-    }
+          }}
+     }
     local jsonData = httpService:JSONEncode(data)
     request({
         Url = webhookURL,
