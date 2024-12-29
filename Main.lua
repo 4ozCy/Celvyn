@@ -15,21 +15,21 @@ local Window = Luna:CreateWindow({
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
     ConfigSettings = {
-        RootFolder = false,
+        RootFolder = true,
         ConfigFolder = "Celvyn Hub"
     },
-    KeySystem = false,
+    KeySystem = true,
     KeySettings = {
-        Title = "Celvyn hub",
+        Title = "Celvyn hub Key",
         Subtitle = "Key System",
         Note = "it easy",
-        SaveInRoot = falss,
-        SaveKey = false,
-        Key = {""},
+        SaveInRoot = true,
+        SaveKey = true,
+        Key = {"Celvyn"},
         SecondAction = {
-            Enabled = false,
+            Enabled = true,
             Type = "Link",
-            Parameter = ""
+            Parameter = "https://celvyn.vercel.app/getkey.html"
         }
     }
 })
@@ -105,7 +105,16 @@ local Button = Tab:CreateButton({
 
 Tab:CreateSection("Music")
 
-local MusicIDs = {1837768517, 1837879082, 1841647093, 1848354536, 9043887091, 1846458016, 1838457617, 1840684529, 1839857296, 1841682637, 16190782181, 15689443663, 16662833495, 16831105312}
+local function getMusicIDs()
+    local musicIDs = {}
+    local file = game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/main/music_ids.txt")
+    for line in file:gmatch("[^\r\n]+") do
+        table.insert(musicIDs, tonumber(line))
+    end
+    return musicIDs
+end
+
+local MusicIDs = getMusicIDs()
 local IsPlayingMusic = false
 local Sound
 local Volume = 1
@@ -163,21 +172,4 @@ local Button = Tab:CreateButton({
             playRandomMusic()
         end
     end
-})
-
-local bfTab = Window:CreateTab({
-    Name = "Blox Fruit",
-    Icon = "101873370290615",
-    ImageSource = "Custom",
-    ShowTitle = true
-})
-
-bfTab:CreateSection("Our function")
-
-local Button = bfTab:CreateButton({
-Name = "Spin fruit",
-Description = "2 hour Cooldown",
-Callback = function()
-game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
-   end
 })
