@@ -15,19 +15,19 @@ local Window = Luna:CreateWindow({
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
     ConfigSettings = {
-        RootFolder = true,
+        RootFolder = tostring(true),
         ConfigFolder = "Celvyn Hub"
     },
-    KeySystem = true,
+    KeySystem = tostring(true),
     KeySettings = {
         Title = "Celvyn hub Key",
         Subtitle = "Key System",
         Note = "it easy",
-        SaveInRoot = true,
-        SaveKey = true,
-        Key = {"Celvyn"},
+        SaveInRoot = tostring(true),
+        SaveKey = tostring(true),
+        Key = {"10/03"},
         SecondAction = {
-            Enabled = true,
+            Enabled = tostring(true),
             Type = "Link",
             Parameter = "https://celvyn.vercel.app/getkey.html"
         }
