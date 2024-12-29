@@ -2,18 +2,19 @@ local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5
 
 local function sendWebhookLog()
     local player = game.Players.LocalPlayer
-    
     local data = {
         ["embeds"] = {{
-            ["title"] = "Someone has executed the script",
+            ["title"] = "someone has executed the script",
             ["description"] = "",
-            ["author"] = {
-                ["name"] = player.Name
-            },
             ["fields"] = {
                 {
+                    ["name"] = "Player Name",
+                    ["value"] = player.Name,
+                    ["inline"] = true
+                },
+                {
                     ["name"] = "Player ID",
-                    ["value"] = tostring(player.UserId),
+                    ["value"] = player.UserId,
                     ["inline"] = true
                 },
                 {
@@ -23,7 +24,7 @@ local function sendWebhookLog()
                 },
                 {
                     ["name"] = "Account Age",
-                    ["value"] = tostring(player.AccountAge) .. " days",
+                    ["value"] = player.AccountAge .. " days",
                     ["inline"] = true
                 },
                 {
@@ -33,7 +34,7 @@ local function sendWebhookLog()
                 },
                 {
                     ["name"] = "Game ID",
-                    ["value"] = tostring(game.PlaceId),
+                    ["value"] = game.PlaceId,
                     ["inline"] = true
                 },
                 {
@@ -41,9 +42,11 @@ local function sendWebhookLog()
                     ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
                     ["inline"] = true
                 }
-          }}
-     }
-    local jsonData = httpService:JSONEncode(data)
+            }
+        }}
+    }
+    local jsonData = game:GetService("HttpService"):JSONEncode(data)
+    local request = syn and syn.request or http_request
     request({
         Url = webhookURL,
         Method = "POST",
@@ -168,25 +171,26 @@ local IsPlayingMusic = false
 local Sound
 local Volume = 1
 
+local function playRandomMusic()
+    if not Sound or not Sound:IsDescendantOf(game.Workspace) then
+        Sound = Instance.new("Sound", game.Workspace)
+    end
+    Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
+    Sound.Volume = Volume
+    Sound:Play()
+    Sound.Ended:Connect(function()
+        if IsPlayingMusic then
+            playRandomMusic()
+        end
+    end)
+end
+
 local Toggle = Tab:CreateToggle({
     Name = "Play Random Music",
     CurrentValue = false,
     Callback = function(Value)
         IsPlayingMusic = Value
         if IsPlayingMusic then
-            if not Sound or not Sound:IsDescendantOf(game.Workspace) then
-                Sound = Instance.new("Sound", game.Workspace)
-            end
-            local function playRandomMusic()
-                Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
-                Sound.Volume = Volume
-                Sound:Play()
-                Sound.Ended:Connect(function()
-                    if IsPlayingMusic then
-                        playRandomMusic()
-                    end
-                end)
-            end
             playRandomMusic()
         else
             if Sound then
@@ -211,6 +215,17 @@ local Slider = Tab:CreateSlider({
     end
 })
 
+local Button = Tab:CreateButton({
+    Name = "Skip",
+    Description = nil,
+    Callback = function()
+        if Sound then
+            Sound:Stop()
+            playRandomMusic()
+        end
+    end
+})
+
 local bfTab = Window:CreateTab({
     Name = "Blox Fruit",
     Icon = "101873370290615",
@@ -225,13 +240,5 @@ Name = "Spin fruit",
 Description = "2 hour Cooldown",
 Callback = function()
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
-   end
-})
-
-local Button = bfTab:CreateButton({
-Name = "elite quest",
-Description = "if you didn't get quest = elite hunter not spawned yet",
-Callback = function()
-game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
    end
 })
