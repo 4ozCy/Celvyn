@@ -1,64 +1,3 @@
-local webhookURL = "https://discord.com/api/webhooks/1294211092389564457/9AKdgc5WGtnwtu1dKeFNEQEnYlmEc_j4_QPp9Gx_XkzUcZS9IDZv5VPHB2ji5J1vwYod"
-
-local function sendWebhookLog()
-    local player = game.Players.LocalPlayer
-    local data = {
-        ["embeds"] = {{
-            ["title"] = "someone has executed the script",
-            ["description"] = "",
-            ["fields"] = {
-                {
-                    ["name"] = "Player Name",
-                    ["value"] = player.Name,
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Player ID",
-                    ["value"] = player.UserId,
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Display Name",
-                    ["value"] = player.DisplayName,
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Account Age",
-                    ["value"] = player.AccountAge .. " days",
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Execution Time",
-                    ["value"] = os.date("%Y-%m-%d %H:%M:%S"),
-                    ["inline"] = false
-                },
-                {
-                    ["name"] = "Game ID",
-                    ["value"] = game.PlaceId,
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Game Name",
-                    ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
-                    ["inline"] = true
-                }
-            }
-        }}
-    }
-    local jsonData = game:GetService("HttpService"):JSONEncode(data)
-    local request = syn and syn.request or http_request
-    request({
-        Url = webhookURL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = jsonData
-    })
-end
-
-sendWebhookLog()
-
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
 Luna:Notification({
@@ -83,10 +22,10 @@ local Window = Luna:CreateWindow({
     KeySettings = {
         Title = "Celvyn hub Key",
         Subtitle = "Key System",
-        Note = ",it easy",
+        Note = "it easy",
         SaveInRoot = true,
         SaveKey = true,
-        Key = {""},
+        Key = {"Celvyn"},
         SecondAction = {
             Enabled = true,
             Type = "Link",
