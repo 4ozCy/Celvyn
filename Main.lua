@@ -11,25 +11,25 @@ local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
     LogoID = "119663846201777",
-    LoadingEnabled = tostring(true),
+    LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
     ConfigSettings = {
         RootFolder = false,
         ConfigFolder = "Celvyn Hub"
     },
-    KeySystem = tostring(false),
+    KeySystem = false,
     KeySettings = {
         Title = "Celvyn hub Key",
         Subtitle = "Key System",
         Note = "it easy",
-        SaveInRoot = tostring(false),
-        SaveKey = tostring(true),
+        SaveInRoot = false,
+        SaveKey = false,
         Key = {""},
         SecondAction = {
-            Enabled = tostring(false),
+            Enabled = false,
             Type = "Link",
-            Parameter = "https://celvyn.vercel.app/getkey.html"
+            Parameter = ""
         }
     }
 })
@@ -51,6 +51,7 @@ Tab:CreateSection("Main")
 
 local Button = Tab:CreateButton({
    Name = "aimbot & esp",
+   Description = nil,
    Callback = function()
 local function get(url)
     local script = game:HttpGet(url, true)
@@ -118,6 +119,7 @@ local Button = Tab:CreateButton({
 
 local Button = Tab:CreateButton({
    Name = "Rejoin",
+   Description = nil,
    Callback = function()
     game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
     end 
@@ -125,6 +127,7 @@ local Button = Tab:CreateButton({
 
 local Button = Tab:CreateButton({
    Name = "Server Hop",
+   Description = nil,
    Callback = function()
 local TeleportService = game:GetService("TeleportService")
 local HttpService = game:GetService("HttpService")
