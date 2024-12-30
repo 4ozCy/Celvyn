@@ -11,7 +11,7 @@ local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
     LogoID = "119663846201777",
-    LoadingEnabled = false,
+    LoadingEnabled = true,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
     ConfigSettings = {
@@ -36,7 +36,7 @@ local Window = Luna:CreateWindow({
 
 Window:CreateHomeTab({
     SupportedExecutors = {},
-    DiscordInvite = "1234",
+    DiscordInvite = "",
     Icon = 2,
 })
 
@@ -121,7 +121,7 @@ local Button = Tab:CreateButton({
    Callback = function()
     game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
     end 
-)}
+})
 
 local Button = Tab:CreateButton({
    Name = "Server Hop",
