@@ -11,10 +11,12 @@ To use Celvyn Hub, execute the `Main.lua` script in your Roblox game environment
 loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/Main.lua"))()
 ```
 
-## Features
+## Features 
+- [x] Aimbot & Esp
 - [x] Server hopping functionality
 - [x] In-game interface for Celvyn hub
 - [x] Module loading
+- [ ] And More..
 
 ## Contributing
 We welcome contributions! Please fork the repository, create a new branch, and submit a pull request with your changes. Ensure your code follows the project's coding standards.
