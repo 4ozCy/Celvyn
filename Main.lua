@@ -11,14 +11,14 @@ local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
     LogoID = "119663846201777",
-    LoadingEnabled = true,
+    LoadingEnabled = tostring(true),
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
     ConfigSettings = {
         RootFolder = false,
         ConfigFolder = "Celvyn Hub"
     },
-    KeySystem = false,
+    KeySystem = tostring(false),
     KeySettings = {
         Title = "Celvyn hub Key",
         Subtitle = "Key System",
