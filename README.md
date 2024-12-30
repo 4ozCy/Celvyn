@@ -7,9 +7,9 @@ Celvyn Hub is a script designed for your Roblox game environment. It loads the n
 To use Celvyn Hub, execute the `Main.lua` script in your Roblox game environment. The script will handle the rest.
 
 ## Features
-- [ ] Server hopping functionality
-- [ ] In-game interface for Celvyn hub
-- [ ] Module loading
+- [x] Server hopping functionality
+- [x] In-game interface for Celvyn hub
+- [x] Module loading
 
 ## Contributing
 We welcome contributions! Please fork the repository, create a new branch, and submit a pull request with your changes. Ensure your code follows the project's coding standards.
@@ -24,7 +24,7 @@ Thanks to Nebula Softworks for providing the Luna Interface Suite.
 - Added server hopping functionality.
 - Integrated in-game interface for Celvyn hub.
 
-For more details, visit the [repository]()
+For more details, visit the [repository](https://github.com/4ozCy/Celvyn/blob/main/Main.lua)
 
 ## Website
-Visit our website: [Celvyn].
+Visit our website: [Celvyn](https://celvyn.netlify.app/)
