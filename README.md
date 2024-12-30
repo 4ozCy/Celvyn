@@ -7,8 +7,7 @@ Celvyn Hub is a script designed for your Roblox game environment. It loads the n
 To use Celvyn Hub, execute the `Main.lua` script in your Roblox game environment. The script will handle the rest.
 
 ## Loader
-```
-lua
+```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/Main.lua"))()
 ```
 
