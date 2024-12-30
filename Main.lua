@@ -11,7 +11,7 @@ local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
     LogoID = "119663846201777",
-    LoadingEnabled = true,
+    LoadingEnabled = false,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by @nz.cy",
     ConfigSettings = {
@@ -119,7 +119,7 @@ local Button = Tab:CreateButton({
 local Button = Tab:CreateButton({
    Name = "Rejoin",
    Callback = function()
-    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId
+    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
     end 
 )}
 
