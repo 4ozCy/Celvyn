@@ -15,7 +15,7 @@ local Window = Luna:CreateWindow({
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by Chatgpt & Copilot",
     ConfigSettings = {
-        RootFolder = false,
+        RootFolder = nil,
         ConfigFolder = "Celvyn Hub"
     },
     KeySystem = false,
