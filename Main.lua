@@ -47,9 +47,6 @@ local Tab = Window:CreateTab({
     ShowTitle = true
 })
 
-Tab:CreateSection("Main")
-
-Tab:BuildThemeSection()
 
 local Button = Tab:CreateButton({
    Name = "aimbot & esp",
@@ -170,12 +167,15 @@ serverHop()
     end
 })
 
+
 local mTab = Window:CreateTab({
     Name = "Music",
     Icon = "library_music",
     ImageSource = "Material",
     ShowTitle = true
 })
+
+mTab:CreateDivider()
 
 local function getMusicIDs()
     local musicIDs = {}
@@ -245,3 +245,12 @@ local Button = mTab:CreateButton({
         end
         end   
 })
+
+local tTab = Window:CreateTab({
+     Name = "Theme",
+     Icon = "palette",
+     ImageSource = "Material",
+     ShowTilte = true,
+})
+
+Tab:BuildThemeSection()
