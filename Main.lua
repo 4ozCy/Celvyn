@@ -49,6 +49,8 @@ local Tab = Window:CreateTab({
 
 Tab:CreateSection("Main")
 
+Tab:BuildThemeSection()
+
 local Button = Tab:CreateButton({
    Name = "aimbot & esp",
    Description = nil,
@@ -168,7 +170,12 @@ serverHop()
     end
 })
 
-Tab:CreateSection("Music")
+local mTab = Window:CreateTab({
+    Name = "Music",
+    Icon = "library_music",
+    ImageSource = "Material",
+    ShowTitle = true
+})
 
 local function getMusicIDs()
     local musicIDs = {}
@@ -198,7 +205,7 @@ local function playRandomMusic()
     end)
 end
 
-local Toggle = Tab:CreateToggle({
+local Toggle = mTab:CreateToggle({
     Name = "Play Random Music",
     CurrentValue = false,
     Callback = function(Value)
@@ -215,7 +222,7 @@ local Toggle = Tab:CreateToggle({
     end
 })
 
-local Slider = Tab:CreateSlider({
+local Slider = mTab:CreateSlider({
     Name = "Volume",
     Range = {0,100},
     increment = 1,
@@ -228,7 +235,7 @@ local Slider = Tab:CreateSlider({
     end
 })
 
-local Button = Tab:CreateButton({
+local Button = mTab:CreateButton({
     Name = "Skip",
     Description = nil,
     Callback = function()
@@ -236,5 +243,5 @@ local Button = Tab:CreateButton({
             Sound:Stop()
             playRandomMusic()
         end
-    end
+        end   
 })
