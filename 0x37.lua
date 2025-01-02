@@ -484,3 +484,45 @@ function a:Window(w)
     return K
 end
 return a
+function K:Textbox(label, placeholder, callback)
+    local textboxFrame = Instance.new("Frame")
+    local textboxLabel = Instance.new("TextLabel")
+    local textbox = Instance.new("TextBox")
+
+    textboxFrame.Name = "TextboxObj"
+    textboxFrame.Parent = E
+    textboxFrame.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
+    textboxFrame.BorderSizePixel = 0
+    textboxFrame.Size = UDim2.new(0, 203, 0, 36)
+
+    textboxLabel.Name = "TextboxLabel"
+    textboxLabel.Parent = textboxFrame
+    textboxLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    textboxLabel.BackgroundTransparency = 1.000
+    textboxLabel.Size = UDim2.new(0, 203, 0, 18)
+    textboxLabel.Font = Enum.Font.Gotham
+    textboxLabel.Text = "  " .. tostring(label) or ""
+    textboxLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textboxLabel.TextSize = 14.000
+    textboxLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    textbox.Name = "Textbox"
+    textbox.Parent = textboxFrame
+    textbox.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+    textbox.BorderSizePixel = 0
+    textbox.Position = UDim2.new(0, 0, 0.5, 0)
+    textbox.Size = UDim2.new(0, 203, 0, 18)
+    textbox.Font = Enum.Font.Gotham
+    textbox.PlaceholderText = placeholder or ""
+    textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textbox.TextSize = 14.000
+    textbox.TextXAlignment = Enum.TextXAlignment.Left
+
+    textbox.FocusLost:Connect(function(enterPressed)
+        if enterPressed and callback then
+            callback(textbox.Text)
+        end
+    end)
+
+    return textbox
+end
