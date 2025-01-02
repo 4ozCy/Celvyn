@@ -63,6 +63,15 @@ get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/aimbot.lua")
   end
 })
 
+local Button = Tab:CreateButton({
+    Name = "Unc Test",
+    Callback = function()
+loadstring(game:HttGet("https://rawscripts.net/raw/Universal-Script-UNC-Test-13114"))()
+  end
+})
+
+
+
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
     Range = {0, 2000},
