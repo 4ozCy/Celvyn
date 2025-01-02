@@ -49,6 +49,19 @@ local Tab = Window:CreateTab({
 
 Tab:CreateDivider()
 
+local Input = Tab:CreateInput({
+	Name = "Dynamic Input Example",
+	Description = nil,
+	PlaceholderText = "Input Placeholder",
+	CurrentValue = "", -- the current text
+	Numeric = false, -- When true, the user may only type numbers in the box (Example walkspeed)
+	MaxCharacters = nil, -- if a number, the textbox length cannot exceed the number
+	Enter = false, -- When true, the callback will only be executed when the user presses enter.
+    	Callback = function(Text)
+            print(Text)
+    	end
+})
+
 local Button = Tab:CreateButton({
    Name = "aimbot & esp",
    Description = nil,
