@@ -49,17 +49,38 @@ local Tab = Window:CreateTab({
 
 Tab:CreateDivider()
 
-local Input = Tab:CreateInput({
-	Name = "Dynamic Input Example",
-	Description = nil,
-	PlaceholderText = "Input Placeholder",
-	CurrentValue = "", -- the current text
-	Numeric = false, -- When true, the user may only type numbers in the box (Example walkspeed)
-	MaxCharacters = nil, -- if a number, the textbox length cannot exceed the number
-	Enter = false, -- When true, the callback will only be executed when the user presses enter.
-    	Callback = function(Text)
-            print(Text)
-    	end
+local playerName = ""
+
+local TextBox = Tab:CreateInput({
+    Name = "Player Name",
+    Description = "Enter the player name to teleport to",
+    PlaceholderText = "Player Name",
+    CurrentValue = "None",
+    Numeric = false,
+    MaxCharacters = nil,
+    Enter = false,
+    Callback = function(Text)
+        playerName = Text
+    end
+})
+
+local TeleportButton = Tab:CreateButton({
+    Name = "Teleport to Player",
+    Description = "Teleport to the specified player",
+    Callback = function()
+        local targetPlayer = game.Players:FindFirstChild(playerName)
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = targetPlayer.Character.HumanoidRootPart.Position
+            game.Players.LocalPlayer.Character:MoveTo(targetPosition)
+        else
+            Luna:Notification({
+                Title = "Celvyn hub",
+                Icon = "error_outline",
+                ImageSource = "Material",
+                Content = "Player not found or invalid target"
+            })
+        end
+    end
 })
 
 local Button = Tab:CreateButton({
