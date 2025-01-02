@@ -47,6 +47,7 @@ local Tab = Window:CreateTab({
     ShowTitle = true
 })
 
+Tab:CreateDivider()
 
 local Button = Tab:CreateButton({
    Name = "aimbot & esp",
@@ -253,4 +254,6 @@ local tTab = Window:CreateTab({
      ShowTilte = true,
 })
 
-Tab:BuildThemeSection()
+tTab:CreateDivider()
+
+tTab:BuildThemeSection()
