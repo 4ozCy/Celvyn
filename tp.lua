@@ -1,14 +1,12 @@
-local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/ui.lua"))()
     
 local w = library:CreateWindow("Celvyn")
 
-local b = w:CreateFolder("Teleport")
-
-b:Box("Username", "string", function(text)
+w:TextBox("Username", function(text)
     targetUsername = text
 end)
 
-b:Button("Teleport", function()
+w:Button("Teleport", function()
 local function getPlayer(username, speaker)
         local foundPlayers = {}
         for _, player in pairs(game.Players:GetPlayers()) do
