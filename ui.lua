@@ -181,53 +181,53 @@ function Library:Window(title)
     end
 
     function Lib:Textbox(name, placeholderText, callback)
-        local TextboxContainer = Instance.new("Frame")
-        local TextboxLabel = Instance.new("TextLabel")
-        local Textbox = Instance.new("TextBox")
-        local UICorner = Instance.new("UICorner")
+    local TextboxContainer = Instance.new("Frame")
+    local TextboxLabel = Instance.new("TextLabel")
+    local Textbox = Instance.new("TextBox")
+    local UICorner = Instance.new("UICorner")
 
-        TextboxContainer.Name = "TextboxContainer"
-        TextboxContainer.Parent = Container
-        TextboxContainer.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-        TextboxContainer.BorderSizePixel = 0
-        TextboxContainer.Size = UDim2.new(0, 204, 0, 40)
+    TextboxContainer.Name = "TextboxContainer"
+    TextboxContainer.Parent = Container
+    TextboxContainer.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    TextboxContainer.BorderSizePixel = 0
+    TextboxContainer.Size = UDim2.new(0, 204, 0, 40)
 
-        TextboxLabel.Name = "TextboxLabel"
-        TextboxLabel.Parent = TextboxContainer
-        TextboxLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        TextboxLabel.BackgroundTransparency = 1.000
-        TextboxLabel.Position = UDim2.new(0.0245098043, 0, 0.1, 0)
-        TextboxLabel.Size = UDim2.new(0, 150, 0, 20)
-        TextboxLabel.Font = Enum.Font.GothamSemibold
-        TextboxLabel.Text = name
-        TextboxLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TextboxLabel.TextScaled = true
-        TextboxLabel.TextSize = 14.000
-        TextboxLabel.TextWrapped = true
-        TextboxLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TextboxLabel.Name = "TextboxLabel"
+    TextboxLabel.Parent = TextboxContainer
+    TextboxLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextboxLabel.BackgroundTransparency = 1.000
+    TextboxLabel.Position = UDim2.new(0.0245098043, 0, 0.1, 0)
+    TextboxLabel.Size = UDim2.new(0, 150, 0, 20)
+    TextboxLabel.Font = Enum.Font.GothamSemibold
+    TextboxLabel.Text = name
+    TextboxLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextboxLabel.TextScaled = true
+    TextboxLabel.TextSize = 14.000
+    TextboxLabel.TextWrapped = true
+    TextboxLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-        Textbox.Name = "Textbox"
-        Textbox.Parent = TextboxContainer
-        Textbox.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
-        Textbox.Position = UDim2.new(0.75, 0, 0.1, 0)
-        Textbox.Size = UDim2.new(0, 50, 0, 20)
-        Textbox.Font = Enum.Font.SourceSans
-        Textbox.Text = ""
-        Textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
-        Textbox.TextSize = 14.000
-        Textbox.PlaceholderText = placeholderText
+    Textbox.Name = "Textbox"
+    Textbox.Parent = TextboxContainer
+    Textbox.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+    Textbox.Position = UDim2.new(0.75, 0, 0.1, 0)
+    Textbox.Size = UDim2.new(0, 50, 0, 20)
+    Textbox.Font = Enum.Font.SourceSans
+    Textbox.Text = ""
+    Textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Textbox.TextSize = 14.000
+    Textbox.PlaceholderText = placeholderText
 
-        UICorner.CornerRadius = UDim.new(0, 4)
-        UICorner.Parent = Textbox
+    UICorner.CornerRadius = UDim.new(0, 4)
+    UICorner.Parent = Textbox
 
-        Textbox:GetPropertyChangedSignal("Text"):Connect(function()
-            if callback then
-                callback(Textbox.Text)
-            end
-        end)
-    end
-
-    return Lib
+    Textbox:GetPropertyChangedSignal("Text"):Connect(function()
+        if callback then
+            callback(Textbox.Text)
+        end
+    end)
+end
+    
+   return Lib
 end
 
 return Library
