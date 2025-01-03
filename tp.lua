@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/ui.lua"))()
     
-local w = library:CreateWindow("Celvyn")
+local w = library:Window("Celvyn")
 
 w:TextBox("Username", function(text)
     targetUsername = text
