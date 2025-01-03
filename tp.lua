@@ -2,7 +2,7 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy
     
 local w = library:Window("Celvyn")
 
-w:TextBox("Username", function(text)
+w:Textbox("Username", function(text)
     targetUsername = text
 end)
 
