@@ -167,6 +167,55 @@ function library:CreateWindow(WName)
         Container.Size = UDim2.new(0, 200, 0, y + 2)
     end
 
+function ui:Box(Name, callback)
+    local BoxHolder = Instance.new("Frame")
+    local TextBox = Instance.new("TextBox")
+    local TextBox_Roundify_5px = Instance.new("ImageLabel")
+
+    BoxHolder.Name = "BoxHolder"
+    BoxHolder.Parent = Container
+    BoxHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    BoxHolder.BackgroundTransparency = 1.000
+    BoxHolder.BorderSizePixel = 0
+    BoxHolder.Size = UDim2.new(0, 200, 0, 37)
+
+    TextBox.Name = "TextBox"
+    TextBox.Parent = BoxHolder
+    TextBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    TextBox.BackgroundTransparency = 1.000
+    TextBox.BorderSizePixel = 0
+    TextBox.Position = UDim2.new(0.0299999993, 0, 0.0810000002, 0)
+    TextBox.Size = UDim2.new(0, 190, 0, 30)
+    TextBox.Font = Enum.Font.SourceSans
+    TextBox.Text = Name
+    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox.TextSize = 18.000
+    TextBox.TextXAlignment = Enum.TextXAlignment.Left
+    TextBox.ClearTextOnFocus = false
+
+    TextBox_Roundify_5px.Name = "TextBox_Roundify_5px"
+    TextBox_Roundify_5px.Parent = TextBox
+    TextBox_Roundify_5px.Active = true
+    TextBox_Roundify_5px.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextBox_Roundify_5px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox_Roundify_5px.BackgroundTransparency = 1.000
+    TextBox_Roundify_5px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TextBox_Roundify_5px.Size = UDim2.new(1, 0, 1, 0)
+    TextBox_Roundify_5px.Image = "rbxassetid://3570695787"
+    TextBox_Roundify_5px.ImageColor3 = Color3.fromRGB(45, 45, 45)
+    TextBox_Roundify_5px.ScaleType = Enum.ScaleType.Slice
+    TextBox_Roundify_5px.SliceCenter = Rect.new(100, 100, 100, 100)
+    TextBox_Roundify_5px.SliceScale = 0.040
+
+    TextBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            pcall(callback, TextBox.Text)
+        end
+    end)
+
+    ui:Resize()
+	end
+
 	function ui:Button(Name, callback)
 		local ButtonHolder = Instance.new("Frame")
 		local Button = Instance.new("TextButton")
