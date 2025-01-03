@@ -1,5 +1,4 @@
-
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Senpai%20Lib"))();
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/ui.lua"))();
 
 local Window1 = library:CreateWindow("Celvyn");
 
