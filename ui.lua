@@ -101,7 +101,7 @@ function Library:Window(title)
                 game:GetService("TweenService"):Create(script.Parent, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 180}):Play()
                 game:GetService("TweenService"):Create(script.Parent, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(255, 0, 68)}):Play()
                 script.Parent.Parent.Container:TweenSize(UDim2.new(0, 204, 0, 0), "InOut", "Sine", 0.25, true)
-                wait(0.25)
+                wait(0.1)
                 script.Parent.Parent.Line.Visible = false
             else
                 game:GetService("TweenService"):Create(script.Parent, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 90}):Play()
