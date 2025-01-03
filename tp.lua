@@ -1,51 +1,42 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Revenant", true))()
-local Flags = Library.Flags
 
-local Window = Library:Window({
-   Text = "Celvyn"
-})
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Senpai%20Lib"))();
 
-local function teleportToPlayer(playerName)
-    local targetPlayer = game.Players:FindFirstChild(playerName)
-    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        local localPlayer = game.Players.LocalPlayer
-        if localPlayer and localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
-        end
-    else
-        warn("Player not found or invalid target")
-    end
-end
+local Window1 = library:CreateWindow("Celvyn");
 
-local selectedPlayerName
-
-local function updatePlayerDropdown()
-    local playerNames = {}
-    for _, player in pairs(game.Players:GetPlayers()) do
-        table.insert(playerNames, player.Name)
-    end
-
-    Window:Dropdown({
-        Text = "Select Player",
-        List = playerNames,
-        Callback = function(selectedPlayer)
-            selectedPlayerName = selectedPlayer
-        end
-    })
-end
-
-updatePlayerDropdown()
-
-spawn(function()
-    while true do
-        updatePlayerDropdown()
-        wait(5)
-    end
+Window1:Box("Username", function(text)
+    targetUsername = text
 end)
 
-Window:Button({
-   Text = "Teleport",
-   Callback = function()
-       teleportToPlayer(selectedPlayerName)
-   end
-})
+Window1:Button("Teleport",function()
+local function getPlayer(username, speaker)
+        local foundPlayers = {}
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player.Name:lower():sub(1, #username) == username:lower() then
+                table.insert(foundPlayers, player.Name)
+            end
+        end
+        return foundPlayers
+    end
+
+    local function getRoot(character)
+        return character:FindFirstChild("HumanoidRootPart") or character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
+    end
+
+    local players = getPlayer(targetUsername, game.Players.LocalPlayer)
+    
+    for i, v in pairs(players) do
+        if game.Players[v] and game.Players[v].Character then
+            local speaker = game.Players.LocalPlayer
+            local humanoid = speaker.Character:FindFirstChildOfClass('Humanoid')
+
+            if humanoid and humanoid.SeatPart then
+                humanoid.Sit = false
+                wait(0.1)
+            end
+            
+            local speakerRoot = getRoot(speaker.Character)
+            local targetRoot = getRoot(game.Players[v].Character)
+            speakerRoot.CFrame = targetRoot.CFrame + Vector3.new(1, 1, 1)
+        end
+    end
+end)
