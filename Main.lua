@@ -81,6 +81,38 @@ local Toggle = Tab:CreateToggle({
     end
 })
 
+local antiAFK = false
+local connections = {}
+
+local function enableAntiAFK()
+    local vu = game:GetService("VirtualUser")
+    connections[#connections + 1] = game:GetService("Players").LocalPlayer.Idled:Connect(function()
+        vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        wait(1)
+        vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    end)
+end
+
+local function disableAntiAFK()
+    for _, connection in ipairs(connections) do
+        connection:Disconnect()
+    end
+    connections = {}
+end
+
+local Toggle = Tab:CreateToggle({
+    Name = "Anti-AFK",
+    CurrentValue = false,
+    Callback = function(Value)
+        antiAFK = Value
+        if antiAFK then
+            enableAntiAFK()
+        else
+            disableAntiAFK()
+        end
+    end
+})
+
 Tab:CreateDivider()
 
 local TeleportButton = Tab:CreateButton({
