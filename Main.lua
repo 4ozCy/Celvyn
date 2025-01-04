@@ -47,6 +47,40 @@ local Tab = Window:CreateTab({
     ShowTitle = true
 })
 
+local noclip = false
+local function enableNoclip()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") and part.CanCollide then
+            part.CanCollide = false
+        end
+    end
+end
+
+local function disableNoclip()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") and not part.CanCollide then
+            part.CanCollide = true
+        end
+    end
+end
+
+local Toggle = Tab:CreateToggle({
+    Name = "Noclip",
+    CurrentValue = false,
+    Callback = function(Value)
+        noclip = Value
+        if noclip then
+            enableNoclip()
+        else
+            disableNoclip()
+        end
+    end
+})
+
 Tab:CreateDivider()
 
 local TeleportButton = Tab:CreateButton({
