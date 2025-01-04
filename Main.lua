@@ -65,6 +65,16 @@ loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-UNC-Test-13
   end
 })
 
+local Button = Tab:CreateButton({
+  Name = "low-gfx",
+  Callback = function()
+  for i,v in next, (workspace:GetDescendants()) do
+ if v:IsA("Part") then v.Material = Enum.Material.SmoothPlastic
+ end
+end
+   end
+})
+
 Tab:CreateDivider()
 
 local Button = Tab:CreateButton({
@@ -79,22 +89,6 @@ end
 get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/esp.lua")
 get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/aimbot.lua")
   end
-})
-
-local Button = Tab:CreateButton({
-  Name = "skeleton esp",
-  Callback = function()
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/ESPs/main/UniversalSkeleton.lua"))()
-
-
-local Skeletons = {}
-for _, Player in next, game.Players:GetChildren() do
-	table.insert(Skeletons, Library:NewSkeleton(Player, true));
-end
-game.Players.PlayerAdded:Connect(function(Player)
-	table.insert(Skeletons, Library:NewSkeleton(Player, true));
-end)
-    end
 })
 
 local Button = Tab:CreateButton({
@@ -166,7 +160,7 @@ local Button = Tab:CreateButton({
    Name = "Rejoin",
    Description = nil,
    Callback = function()
-    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId)
+   game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
     end 
 })
 
