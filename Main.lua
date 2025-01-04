@@ -312,6 +312,7 @@ local function playRandomMusic()
     end
     Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
     Sound.Volume = Volume
+    Sound.Pitch = Pitch
     Sound:Play()
     Sound.Ended:Connect(function()
         if IsPlayingMusic then
@@ -358,5 +359,6 @@ local Button = mTab:CreateButton({
             Sound:Stop()
             playRandomMusic()
         end
-        end   
+    end   
 })
+
