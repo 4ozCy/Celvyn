@@ -128,6 +128,16 @@ local Slider = Tab:CreateSlider({
     end
 })
 
+local Slider = Tab:CreateSlider({
+    Name = "Field of View",
+    Range = {70, 120},
+    Increment = 1,
+    CurrentValue = workspace.CurrentCamera.FieldOfView,
+    Callback = function(Value)
+        workspace.CurrentCamera.FieldOfView = Value
+    end
+})
+
 Tab:CreateDivider()
 
 local Button = Tab:CreateButton({
