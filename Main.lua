@@ -312,7 +312,7 @@ local function playRandomMusic()
     end
     Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
     Sound.Volume = Volume
-    Sound.Pitch = Pitch
+    Sound.PlayBackSpeed = Pitch
     Sound:Play()
     Sound.Ended:Connect(function()
         if IsPlayingMusic then
@@ -334,6 +334,17 @@ local Toggle = mTab:CreateToggle({
                 Sound:Destroy()
                 Sound = nil
             end
+        end
+    end
+})
+
+local Toggle = mTab:CreateToggle({
+    Name = "Loop Music",
+    CurrentValue = false,
+    Callback = function(Value)
+        LoopMusic = Value
+        if Sound then
+            Sound.Looped = LoopMusic
         end
     end
 })
@@ -362,3 +373,15 @@ local Button = mTab:CreateButton({
     end   
 })
 
+local Slider = mTab:CreateSlider({
+    Name = "Pitch",
+    Range = {0.5, 2},
+    Increment = 0.1,
+    CurrentValue = Pitch,
+    Callback = function(Value)
+        Pitch = Value
+        if Sound then
+            Sound.PlaybackSpeed = Pitch
+        end
+    end
+})
