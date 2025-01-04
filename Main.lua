@@ -312,7 +312,7 @@ local function playRandomMusic()
     end
     Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
     Sound.Volume = Volume
-    Sound.PlayBackSpeed = Pitch
+    Sound.PlaybackSpeed = Pitch
     Sound:Play()
     Sound.Ended:Connect(function()
         if IsPlayingMusic then
