@@ -49,7 +49,7 @@ local Tab = Window:CreateTab({
 
 local Paragraph = Tab:CreateParagraph({
     Title = "",
-    Text = "'
+    Text = ""
 })
 
 local function updateFPS()
