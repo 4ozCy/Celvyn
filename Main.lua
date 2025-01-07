@@ -40,6 +40,73 @@ Window:CreateHomeTab({
     Icon = 2,
 })
 
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.CoreGui
+
+local FPSTextLabel = Instance.new("TextLabel")
+FPSTextLabel.Size = UDim2.new(0, 200, 0, 25)
+FPSTextLabel.Position = UDim2.new(0, 10, 0, 10)
+FPSTextLabel.BackgroundTransparency = 1
+FPSTextLabel.TextColor3 = Color3.fromRGB(144, 238, 144)
+FPSTextLabel.TextScaled = true
+FPSTextLabel.Font = Enum.Font.PatrickHand
+FPSTextLabel.Parent = ScreenGui
+
+local UIS = game:GetService("UserInputService")
+local dragging
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    FPSTextLabel.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+FPSTextLabel.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = FPSTextLabel.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+FPSTextLabel.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+local function updateFPS()
+    local lastTime = tick()
+    local frameCount = 0
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        frameCount = frameCount + 1
+        local currentTime = tick()
+        if currentTime - lastTime >= 1 then
+            local fps = frameCount / (currentTime - lastTime)
+            FPSTextLabel.Text = string.format("fps:%.2f", fps)
+            frameCount = 0
+            lastTime = currentTime
+        end
+    end)
+end
+
+updateFPS()
+
 local Tab = Window:CreateTab({
     Name = "Main",
     Icon = "view_in_ar",
