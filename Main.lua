@@ -48,7 +48,7 @@ local Tab = Window:CreateTab({
 })
 
 local Paragraph = Tab:CreateParagraph({
-    Title = "",
+    Title = "fps: Calculating...",
 })
 
 local function updateFPS()
@@ -60,7 +60,11 @@ local function updateFPS()
         local currentTime = tick()
         if currentTime - lastTime >= 1 then
             local fps = frameCount / (currentTime - lastTime)
-            Paragraph.Title = string.format("fps: %.2f", fps)
+            
+            Tab:UpdateParagraph(Paragraph, {
+                Title = string.format("fps: %.2f", fps),
+            })
+
             frameCount = 0
             lastTime = currentTime
         end
