@@ -114,6 +114,11 @@ local Tab = Window:CreateTab({
     ShowTitle = true
 })
 
+local Paragraph = Tab:CreateParagraph({
+	Title = "Paragraph Example ",
+	Text = "This Is A Paragraph. You Can Type Very Long Strings Here And They'll Automatically Fit! This Counts As A Description Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Right? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text? Also Did I Mention This Has Rich Text?"
+})
+
 local noclip = false
 local function enableNoclip()
     local player = game.Players.LocalPlayer
