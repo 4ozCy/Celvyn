@@ -76,8 +76,8 @@ updateFPS()
 
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
-    Subtitle = "Beta",
-    LogoID = "119663846201777",
+    Subtitle = "- Beta",
+    LogoID = "103444373325274",
     LoadingEnabled = false,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by Chatgpt & Copilot",
@@ -358,6 +358,8 @@ local Slider = Tab:CreateSlider({
     end
 })
 
+local Field0fView = 70
+
 local Slider = Tab:CreateSlider({
     Name = "Field of View",
     Range = {70, 120},
@@ -371,8 +373,8 @@ local Slider = Tab:CreateSlider({
 
 local sTab = Window:CreateTab({
     Name = "Server",
-    Icon = "stacks",
-    ImageSource = "Material",
+    Icon = "100070865464933",
+    ImageSource = "Custom",
     ShowTitle = true
 })
 
