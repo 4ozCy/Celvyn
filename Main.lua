@@ -375,9 +375,106 @@ local Button = Tab:CreateButton({
 
 local sTab = Window:CreateTab({
     Name = "Server",
-    Icon = "view_in_ar",
+    Icon = "host",
     ImageSource = "Material",
     ShowTitle = true
+})
+
+local selectedOption
+
+local Dropdown = sTab:CreateDropdown({
+    Name = "Server Hop Options",
+    Options = {"Normal Server", "least ping Server"},
+    Callback = function(option)
+        selectedOption = option
+    end
+})
+
+local Button = sTab:CreateButton({
+    Name = "Execute Server Hop",
+    Callback = function()
+        if selectedOption == "Normal Server" then
+            local TeleportService = game:GetService("TeleportService")
+            local HttpService = game:GetService("HttpService")
+            local Players = game:GetService("Players")
+            local LocalPlayer = Players.LocalPlayer
+
+            local function getServerList()
+                local servers = {}
+                local success, result = pcall(function()
+                    return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+                end)
+                if success then
+                    for _, server in pairs(result.data) do
+                        if server.playing < server.maxPlayers then
+                            table.insert(servers, {id = server.id, players = server.playing})
+                        end
+                    end
+                    table.sort(servers, function(a, b) return a.players < b.players end)
+                end
+                return servers
+            end
+
+            local function serverHop()
+                local servers = getServerList()
+                if #servers > 0 then
+                    TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[1].id, LocalPlayer)
+                else
+                    Luna:Notification({
+                        Title = "Celvyn Hub",
+                        Icon = "notifications_active",
+                        ImageSource = "Material",
+                        Content = "No server available"
+                    })
+                end
+            end
+
+            serverHop()
+
+        elseif selectedOption == "least ping Server" then
+            local HTTPService = game:GetService("HttpService")
+            local TeleportService = game:GetService("TeleportService")
+            local StatsService = game:GetService("Stats")
+
+            local function fetchServersData(placeId, limit)
+                local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=%d", placeId, limit)
+                local success, response = pcall(function()
+                    return HTTPService:JSONDecode(game:HttpGet(url))
+                end)
+
+                if success and response and response.data then
+                    return response.data
+                end
+
+                return nil
+            end
+
+            local placeId = game.PlaceId
+            local serverLimit = 100
+            local servers = fetchServersData(placeId, serverLimit)
+
+            if not servers then
+                return
+            end
+
+            local lowestPingServer = servers[1]
+
+            for _, server in pairs(servers) do
+                if server["ping"] < lowestPingServer["ping"] and server.maxPlayers > server.playing then
+                    lowestPingServer = server
+                end
+            end
+
+            TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
+        else
+            Luna:Notification({
+                Title = "Celvyn Hub",
+                Icon = "info",
+                ImageSource = "Material",
+                Content = "Please select a server hop option first."
+            })
+        end
+    end
 })
 
 local Button = sTab:CreateButton({
@@ -386,100 +483,6 @@ local Button = sTab:CreateButton({
    Callback = function()
    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
     end 
-})
-
-local Button = sTab:CreateButton({
-   Name = "Server Hop",
-   Description = nil,
-   Callback = function()
-local TeleportService = game:GetService("TeleportService")
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
-local function getServerList()
-    local servers = {}
-    local success, result = pcall(function()
-        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
-    end)
-    if success then
-        for _, server in pairs(result.data) do
-            if server.playing < server.maxPlayers then
-                table.insert(servers, {id = server.id, players = server.playing})
-            end
-        end
-        table.sort(servers, function(a, b) return a.players < b.players end)
-    end
-    return servers
-end
-
-local function serverHop()
-    local servers = getServerList()
-    if #servers > 0 then
-        TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[1].id, LocalPlayer)
-    else
-       Luna:Notification({
-    Title = "Celvyn hub",
-    Icon = "notifications_active",
-    ImageSource = "Material",
-    Content = "no server available"
-})
-    end
-end
-         
-serverHop()
-    end
-})
-
-local Button = sTab:CreateButton({
-  Name = "Server hop least ping",
-  Callback = function()
-  local HTTPService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local StatsService = game:GetService("Stats")
-
-local function fetchServersData(placeId, limit)
-    local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=%d", placeId, limit)
-    local success, response = pcall(function()
-        return HTTPService:JSONDecode(game:HttpGet(url))
-    end)
-
-    if success and response and response.data then
-        return response.data
-    end
-
-    return nil
-end
-
-local placeId = game.PlaceId
-local serverLimit = 100
-local servers = fetchServersData(placeId, serverLimit)
-
-if not servers then
-    return
-end
-
-local lowestPingServer = servers[1]
-
-for _, server in pairs(servers) do
-    if server["ping"] < lowestPingServer["ping"] and server.maxPlayers > server.playing then
-        lowestPingServer = server
-    end
-end
-
-local commonLoadTime = 5
-task.wait(commonLoadTime)
-
-local pingThreshold = 100
-local serverStats = StatsService.Network.ServerStatsItem
-local dataPing = serverStats["Data Ping"]:GetValueString()
-local pingValue = tonumber(dataPing:match("(%d+)"))
-
-if pingValue >= pingThreshold then
-    TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
-else
-   end 
-  end 
 })
 
 local mTab = Window:CreateTab({
