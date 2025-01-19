@@ -373,7 +373,14 @@ local Button = Tab:CreateButton({
     end
 })
 
-local Button = Tab:CreateButton({
+local sTab = Window:CreateTab({
+    Name = "Server",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+local Button = sTab:CreateButton({
    Name = "Rejoin",
    Description = nil,
    Callback = function()
@@ -381,7 +388,7 @@ local Button = Tab:CreateButton({
     end 
 })
 
-local Button = Tab:CreateButton({
+local Button = sTab:CreateButton({
    Name = "Server Hop",
    Description = nil,
    Callback = function()
@@ -424,7 +431,7 @@ serverHop()
     end
 })
 
-local Button = Tab:CreateButton({
+local Button = sTab:CreateButton({
   Name = "Server hop least ping",
   Callback = function()
   local HTTPService = game:GetService("HttpService")
