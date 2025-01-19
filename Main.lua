@@ -1,5 +1,3 @@
-loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
-
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
 Luna:Notification({
@@ -262,6 +260,13 @@ local Button = Tab:CreateButton({
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/ESP/Arrows/Example"))()
     end
 })
+
+local Button = Tab:CreateButton({
+  Name = "Radar esp",
+  Callback = function()
+loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
+    end 
+})
         
 Tab:CreateDivider()
 
@@ -315,32 +320,20 @@ local sTab = Window:CreateTab({
 
 sTab:CreateDivider()
 
-game:SetAttribute("ServerStartTime", os.time())
-
-local ServerStartTime = game:GetAttribute("ServerStartTime") or os.time()
-
-local function GetUptime()
-    local currentTime = os.time()
-    local elapsedTime = currentTime - ServerStartTime
-    local hours = math.floor(elapsedTime / 3600)
-    local minutes = math.floor((elapsedTime % 3600) / 60)
-    local seconds = elapsedTime % 60
-    return string.format("%02d:%02d:%02d", hours, minutes, seconds)
+local function GetFPS()
+    return math.floor(workspace:GetRealPhysicsFPS())
 end
 
-local Paragraph = sTab:CreateParagraph({
-    Title = "Server Uptime",
-    Text = "Uptime: 00:00:00"
+local Paragraph = Tab:CreateParagraph({
+    Title = "FPS:0"
 })
 
 while true do
     Paragraph:Set({
-        Title = "Server Uptime",
-        Text = "Uptime: " .. GetUptime()
+        Title = "FPS:" .. GetFPS()
     })
-    task.wait(1)
+    task.wait(0.1)
 end
-
 
 local selectedOption
 
