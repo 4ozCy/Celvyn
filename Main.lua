@@ -362,7 +362,7 @@ local Field0fView = 70
 
 local Slider = Tab:CreateSlider({
     Name = "Field of View",
-    Range = {70, 120},
+    Range = {10, 120},
     Increment = 1,
     CurrentValue = workspace.CurrentCamera.FieldOfView,
     Callback = function(Value)
@@ -373,10 +373,12 @@ local Slider = Tab:CreateSlider({
 
 local sTab = Window:CreateTab({
     Name = "Server",
-    Icon = "100070865464933",
-    ImageSource = "Custom",
+    Icon = "dns",
+    ImageSource = "Material",
     ShowTitle = true
 })
+
+sTab:CreateDivider()
 
 local selectedOption
 
