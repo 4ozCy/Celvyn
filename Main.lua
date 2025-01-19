@@ -1,3 +1,5 @@
+loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
+
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
 Luna:Notification({
