@@ -347,7 +347,6 @@ local Slider = Tab:CreateSlider({
     CurrentValue = tpwalkSpeed,
     Callback = function(Value)
         tpwalkSpeed = Value
-        print("TP Walk Speed set to: " .. tpwalkSpeed)
     end
 })
 
@@ -356,21 +355,22 @@ local Toggle = Tab:CreateToggle({
     CurrentValue = false,
     Callback = function(Value)
         tpwalkEnabled = Value
-        print("TP Walk is " .. (tpwalkEnabled and "enabled" or "disabled"))
+        
+        if tpwalkEnabled then
+            local chr = speaker.Character
+            local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+            
+            while tpwalkEnabled and chr and hum and hum.Parent do
+                local delta = hb:Wait()
+                if hum.MoveDirection.Magnitude > 0 then
+                    local moveDistance = tpwalkSpeed > 0 and tpwalkSpeed or 1
+                    chr:TranslateBy(hum.MoveDirection * moveDistance * delta * 10)
+                end
+            end
+        end
     end
 })
 
-local function teleportToPosition(position)
-    local player = game.Players.LocalPlayer
-    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-        local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
-        if tpwalkEnabled then
-            humanoidRootPart.CFrame = position + Vector3.new(0, tpwalkSpeed, 0)
-        else
-            humanoidRootPart.CFrame = position
-        end
-    end
-end
 
 Tab:CreateDivider()
 
