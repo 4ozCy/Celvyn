@@ -315,6 +315,30 @@ local sTab = Window:CreateTab({
 
 sTab:CreateDivider()
 
+local ServerStartTime = game:GetAttribute("ServerStartTime")
+
+local function GetUptime()
+    local currentTime = os.time()
+    local elapsedTime = currentTime - ServerStartTime
+    local hours = math.floor(elapsedTime / 3600)
+    local minutes = math.floor((elapsedTime % 3600) / 60)
+    local seconds = elapsedTime % 60
+    return string.format("%02d:%02d:%02d", hours, minutes, seconds)
+end
+
+local Paragraph = sTab:CreateParagraph({
+    Title = "Server Uptime",
+    Text = "Uptime: 00:00:00"
+})
+
+while true do
+    Paragraph:Set({
+        Title = "Server Uptime",
+        Text = "Uptime: " .. GetUptime()
+    })
+    task.wait(1)
+end
+
 local selectedOption
 
 local Dropdown = sTab:CreateDropdown({
