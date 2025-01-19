@@ -383,13 +383,16 @@ local selectedOption
 local Dropdown = sTab:CreateDropdown({
     Name = "Server Hop Options",
     Options = {"Normal Server", "least ping Server"},
+    CurrentOption = {"Normal Server"},
+    MultipleOptions = false,
+    SpecialType = nil,
     Callback = function(option)
         selectedOption = option
     end
 })
 
 local Button = sTab:CreateButton({
-    Name = "Execute Server Hop",
+    Name = "Server Hop",
     Callback = function()
         if selectedOption == "Normal Server" then
             local TeleportService = game:GetService("TeleportService")
