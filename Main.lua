@@ -315,7 +315,9 @@ local sTab = Window:CreateTab({
 
 sTab:CreateDivider()
 
-local ServerStartTime = game:GetAttribute("ServerStartTime")
+game:SetAttribute("ServerStartTime", os.time())
+
+local ServerStartTime = game:GetAttribute("ServerStartTime") or os.time()
 
 local function GetUptime()
     local currentTime = os.time()
@@ -338,6 +340,7 @@ while true do
     })
     task.wait(1)
 end
+
 
 local selectedOption
 
