@@ -274,6 +274,13 @@ if ToEnable.FullBright then
    end
 })
 
+local Button = Tab:CreateButton({
+   Name = "Tpwalk",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealXORA/Roblox/refs/heads/Main/Scripts%20/Universal%20/Tpwalk.lua"))()
+  end
+});
+
 Tab:CreateDivider()
 
 local Button = Tab:CreateButton({
@@ -334,40 +341,6 @@ local Slider = Tab:CreateSlider({
     CurrentValue = workspace.CurrentCamera.FieldOfView,
     Callback = function(Value)
         workspace.CurrentCamera.FieldOfView = Value
-    end
-})
-
-local tpwalkSpeed = 0
-local tpwalkEnabled = false
-
-local Slider = Tab:CreateSlider({
-    Name = "TP Walk Speed",
-    Range = {0, 100},
-    Increment = 1,
-    CurrentValue = tpwalkSpeed,
-    Callback = function(Value)
-        tpwalkSpeed = Value
-    end
-})
-
-local Toggle = Tab:CreateToggle({
-    Name = "Enable TP Walk",
-    CurrentValue = false,
-    Callback = function(Value)
-        tpwalkEnabled = Value
-        
-        if tpwalkEnabled then
-            local chr = speaker.Character
-            local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
-            
-            while tpwalkEnabled and chr and hum and hum.Parent do
-                local delta = hb:Wait()
-                if hum.MoveDirection.Magnitude > 0 then
-                    local moveDistance = tpwalkSpeed > 0 and tpwalkSpeed or 1
-                    chr:TranslateBy(hum.MoveDirection * moveDistance * delta * 10)
-                end
-            end
-        end
     end
 })
 
