@@ -78,7 +78,7 @@ local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
     LogoID = "119663846201777",
-    LoadingEnabled = true,
+    LoadingEnabled = false,
     LoadingTitle = "Celvyn hub",
     LoadingSubtitle = "by Chatgpt & Copilot",
     ConfigSettings = {
@@ -336,6 +336,41 @@ local Slider = Tab:CreateSlider({
         workspace.CurrentCamera.FieldOfView = Value
     end
 })
+
+local tpwalkSpeed = 0
+local tpwalkEnabled = false
+
+local Slider = Tab:CreateSlider({
+    Name = "TP Walk Speed",
+    Range = {0, 100},
+    Increment = 1,
+    CurrentValue = tpwalkSpeed,
+    Callback = function(Value)
+        tpwalkSpeed = Value
+        print("TP Walk Speed set to: " .. tpwalkSpeed)
+    end
+})
+
+local Toggle = Tab:CreateToggle({
+    Name = "Enable TP Walk",
+    CurrentValue = false,
+    Callback = function(Value)
+        tpwalkEnabled = Value
+        print("TP Walk is " .. (tpwalkEnabled and "enabled" or "disabled"))
+    end
+})
+
+local function teleportToPosition(position)
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+        if tpwalkEnabled then
+            humanoidRootPart.CFrame = position + Vector3.new(0, tpwalkSpeed, 0)
+        else
+            humanoidRootPart.CFrame = position
+        end
+    end
+end
 
 Tab:CreateDivider()
 
