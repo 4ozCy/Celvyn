@@ -182,6 +182,32 @@ local Toggle = Tab:CreateToggle({
 
 Tab:CreateDivider()
 
+local Button = Tab:CreateButton({
+    Name = "Permeant tptool",
+    Description = nil,
+    Callback = function()
+        local ToolName = "tptool "
+        local function createTool()
+            local tool = Instance.new("Tool")
+            tool.Name = ToolName
+            tool.RequiresHandle = false
+            tool.CanBeDropped = false
+            tool.Parent = game.Players.LocalPlayer.Backpack
+            tool.Activated:Connect(function()
+                local player = game.Players.LocalPlayer
+                local mouse = player:GetMouse()
+                local targetPos = mouse.Hit.p
+                player.Character:MoveTo(targetPos)
+            end)
+        end
+        local function onCharacterAdded(character)
+            createTool()
+        end
+        game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+        createTool()
+    end
+})
+
 local TeleportButton = Tab:CreateButton({
     Name = "Teleport to Player",
     Description = nil,
@@ -281,8 +307,6 @@ local Button = Tab:CreateButton({
   end
 });
 
-Tab:CreateDivider()
-
 local Button = Tab:CreateButton({
    Name = "Aimbot & Esp",
    Description = nil,
@@ -345,37 +369,9 @@ local Slider = Tab:CreateSlider({
 })
 
 
-Tab:CreateDivider()
-
-local Button = Tab:CreateButton({
-    Name = "Permeant tptool",
-    Description = nil,
-    Callback = function()
-        local ToolName = "tptool "
-        local function createTool()
-            local tool = Instance.new("Tool")
-            tool.Name = ToolName
-            tool.RequiresHandle = false
-            tool.CanBeDropped = false
-            tool.Parent = game.Players.LocalPlayer.Backpack
-            tool.Activated:Connect(function()
-                local player = game.Players.LocalPlayer
-                local mouse = player:GetMouse()
-                local targetPos = mouse.Hit.p
-                player.Character:MoveTo(targetPos)
-            end)
-        end
-        local function onCharacterAdded(character)
-            createTool()
-        end
-        game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
-        createTool()
-    end
-})
-
 local sTab = Window:CreateTab({
     Name = "Server",
-    Icon = "host",
+    Icon = "stacks",
     ImageSource = "Material",
     ShowTitle = true
 })
