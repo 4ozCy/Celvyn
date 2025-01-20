@@ -242,6 +242,8 @@ local Button = Tab:CreateButton({
   end
 });
 
+Tab:CreateSection("Esp & Aimbot")
+
 local Button = Tab:CreateButton({
    Name = "Aimbot & Esp",
    Description = nil,
@@ -269,6 +271,8 @@ local Button = Tab:CreateButton({
 loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
     end 
 })
+
+Tab:CreateSection("Slider Section")
         
 Tab:CreateDivider()
 
