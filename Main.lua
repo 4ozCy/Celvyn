@@ -240,7 +240,24 @@ local Button = Tab:CreateButton({
    Callback = function()
    loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealXORA/Roblox/refs/heads/Main/Scripts%20/Universal%20/Tpwalk.lua"))()
   end
-});
+})
+
+local Button = Tab:CreateButton({
+  Name = "disable leaderboard (Permanent)",
+  Callback = function()
+ local StarterGui = game:GetService("StarterGui")
+
+local function disableLeaderboard()
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+end
+
+disableLeaderboard()
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    disableLeaderboard()
+end)
+    end 
+})		
 
 Tab:CreateSection("Esp & Aimbot")
 
@@ -273,8 +290,6 @@ loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
 })
 
 Tab:CreateSection("Slider Section")
-        
-Tab:CreateDivider()
 
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
