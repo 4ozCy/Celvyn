@@ -1,4 +1,8 @@
-# Celvyn Hub
+# Celvyn Hub 
+
+## Credit 
+- Credit to all the chatgpt that been use for this script
+
 
 ## Note
 - This project includes code generated with the help of ChatGPT, GitHub Copilot, and scripts from other open-source projects. These tools and resources were used to speed up development and improve the overall quality of the code through suggestions, explanations, optimizations, and contributions from the open-source community. However, the final responsibility for how the code is implemented and any issues that come up lies with the contributors of this repository.
@@ -22,9 +26,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/hea
 - [x] In-game interface for Celvyn hub
 - [x] Module loading
 - [ ] And More..
-
-## Contributing
-We welcome contributions! Please fork the repository, create a new branch, and submit a pull request with your changes. Ensure your code follows the project's coding standards.
 
 ## License
 This project is currently not licensed. Please contact the repository owner for more information.
