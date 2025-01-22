@@ -117,7 +117,7 @@ local Toggle = Tab:CreateToggle({
     end
 })
 
-Tab:CreateDivider()
+Tab:CreateSection("Extra Section")
 
 local Button = Tab:CreateButton({
     Name = "Permeant tptool",
