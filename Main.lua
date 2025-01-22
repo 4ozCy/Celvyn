@@ -51,6 +51,19 @@ local Tab = Window:CreateTab({
     ShowTitle = true
 })
 
+local Input = Tab:CreateInput({
+	Name = "Dynamic Input Example",
+	Description = nil,
+	PlaceholderText = "Input Placeholder",
+	CurrentValue = "", -- the current text
+	Numeric = false, -- When true, the user may only type numbers in the box (Example walkspeed)
+	MaxCharacters = nil, -- if a number, the textbox length cannot exceed the number
+	Enter = true, -- When true, the callback will only be executed when the user presses enter.
+    	Callback = function(Text)
+       	 print(Text)
+    	end
+})
+
 local noclip = false
 local function enableNoclip()
     local player = game.Players.LocalPlayer
