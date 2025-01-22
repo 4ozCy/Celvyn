@@ -12,7 +12,7 @@ Luna:Notification({
 })
 
 local Window = Luna:CreateWindow({
-    Name = "Celvyn -",
+    Name = "Celvyn",
     Subtitle = "Beta",
     LogoID = "119663846201777",
     LoadingEnabled = false,
