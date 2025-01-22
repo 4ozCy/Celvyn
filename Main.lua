@@ -1,3 +1,5 @@
+--Note: skidd are allowed no need to give credit.
+
 loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
 
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
@@ -238,7 +240,7 @@ if ToEnable.FullBright then
 local Button = Tab:CreateButton({
    Name = "Tpwalk",
    Callback = function()
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealXORA/Roblox/refs/heads/Main/Scripts%20/Universal%20/Tpwalk.lua"))()
+   loadstring(game:HttpGet('https://pastebin.com/raw/i5c8a0tv', true))()
   end
 })
 
