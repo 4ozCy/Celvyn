@@ -259,35 +259,6 @@ end)
     end 
 })		
 
-local cTab = Window:CreateTab({
-    Name = "Aimbot & Esp",
-    Icon = "radio_button_checked",
-    ImageSource = "Material",
-    ShowTitle = true
-})
-
-local cButton = Tab:CreateButton({
-   Name = "Celvyn Aimbot",
-   Description = nil,
-   Callback = function()
-  loadstring(game:HttpGet('https://pastebin.com/raw/aUnUDhMa', true))()
-  end
-})
-
-local Button = Tab:CreateButton({
-  Name = "Arrow esp",
-  Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/ESP/Arrows/Example"))()
-    end
-})
-
-local Button = Tab:CreateButton({
-  Name = "Radar esp",
-  Callback = function()
-loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
-    end 
-})
-
 Tab:CreateSection("Slider Section")
 
 local Slider = Tab:CreateSlider({
@@ -330,6 +301,36 @@ local Slider = Tab:CreateSlider({
     end
 })
 
+local cTab = Window:CreateTab({
+    Name = "Aimbot & Esp",
+    Icon = "radio_button_checked",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+local cButton = Tab:CreateButton({
+   Name = "Celvyn Aimbot",
+   Description = nil,
+   Callback = function()
+  loadstring(game:HttpGet('https://pastebin.com/raw/aUnUDhMa', true))()
+  end
+})
+
+cTab:CreateDivider()
+
+local cButton = Tab:CreateButton({
+  Name = "Arrow esp",
+  Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/ESP/Arrows/Example"))()
+    end
+})
+
+local cButton = Tab:CreateButton({
+  Name = "Radar esp",
+  Callback = function()
+loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
+    end 
+})
 
 local sTab = Window:CreateTab({
     Name = "Server",
