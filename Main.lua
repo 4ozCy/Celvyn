@@ -308,7 +308,9 @@ local cTab = Window:CreateTab({
     ShowTitle = true
 })
 
-local cButton = Tab:CreateButton({
+cTab:CreateDivider()
+
+local Button = cTab:CreateButton({
    Name = "Celvyn Aimbot",
    Description = nil,
    Callback = function()
@@ -316,16 +318,14 @@ local cButton = Tab:CreateButton({
   end
 })
 
-cTab:CreateDivider()
-
-local cButton = Tab:CreateButton({
+local Button = cTab:CreateButton({
   Name = "Arrow esp",
   Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/ESP/Arrows/Example"))()
     end
 })
 
-local cButton = Tab:CreateButton({
+local Button = cTab:CreateButton({
   Name = "Radar esp",
   Callback = function()
 loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
