@@ -1,5 +1,3 @@
---Note: skidd are allowed no need to give credit.
-
 loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
 
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
@@ -261,19 +259,18 @@ end)
     end 
 })		
 
-Tab:CreateSection("Esp & Aimbot")
+local cTab = Window:CreateTab({
+    Name = "Aimbot & Esp",
+    Icon = "radio_button_checked",
+    ImageSource = "Material",
+    ShowTitle = true
+})
 
-local Button = Tab:CreateButton({
-   Name = "Aimbot & Esp",
+local cButton = Tab:CreateButton({
+   Name = "Celvyn Aimbot",
    Description = nil,
    Callback = function()
-local function get(url)
-    local script = game:HttpGet(url, true)
-    loadstring(script)()
-end
-
-get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/esp.lua")
-get("https://raw.githubusercontent.com/4ozCy/Script-hub/main/aimbot.lua")
+  loadstring(game:HttpGet('https://pastebin.com/raw/aUnUDhMa', true))()
   end
 })
 
