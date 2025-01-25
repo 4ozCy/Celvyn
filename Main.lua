@@ -316,7 +316,7 @@ local Button = cTab:CreateButton({
    Name = "Celvyn Aimbot",
    Description = nil,
    Callback = function()
-  loadstring(game:HttpGet('https://pastebin.com/raw/aUnUDhMa', true))()
+   loadstring(game:HttpGet('https://pastebin.com/raw/QE0GzMDq', true))()
   end
 })
 
