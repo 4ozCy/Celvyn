@@ -310,6 +310,8 @@ local cTab = Window:CreateTab({
 
 cTab:CreateDivider()
 
+cTab:CreateSection("Aimbot Section")
+
 local Button = cTab:CreateButton({
    Name = "Celvyn Aimbot",
    Description = nil,
@@ -317,6 +319,8 @@ local Button = cTab:CreateButton({
   loadstring(game:HttpGet('https://pastebin.com/raw/aUnUDhMa', true))()
   end
 })
+
+cTab:CreateSection("Esp Section")
 
 local Button = cTab:CreateButton({
   Name = "Arrow esp",
