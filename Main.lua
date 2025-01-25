@@ -323,6 +323,13 @@ local Button = cTab:CreateButton({
 cTab:CreateSection("Esp Section")
 
 local Button = cTab:CreateButton({
+  Name = "Celvyn esp",
+  Callback = function()
+  loadstring(game:HttpGet('https://pastebin.com/raw/Hsvmj2mw', true))()
+  end 
+})
+
+local Button = cTab:CreateButton({
   Name = "Arrow esp",
   Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/ESP/Arrows/Example"))()
