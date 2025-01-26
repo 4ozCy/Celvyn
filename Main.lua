@@ -1,13 +1,10 @@
+local Noti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
+
+Noti.new("success", "Welcome To Celvyn!", "Thank you for using our script.", true, 5)
+
 loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
 
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
-
-Luna:Notification({
-    Title = "Celvyn hub",
-    Icon = "notifications_active",
-    ImageSource = "Material",
-    Content = "Enjoyyyyyy"
-})
 
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
@@ -395,12 +392,7 @@ local Button = sTab:CreateButton({
                 if #servers > 0 then
                     TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[1].id, LocalPlayer)
                 else
-                    Luna:Notification({
-                        Title = "Celvyn Hub",
-                        Icon = "notifications_active",
-                        ImageSource = "Material",
-                        Content = "No server available"
-                    })
+                    Noti.new("info", "Celvyn Hub", "No server available.", true, 5)
                 end
             end
 
@@ -442,12 +434,7 @@ local Button = sTab:CreateButton({
 
             TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
         else
-            Luna:Notification({
-                Title = "Celvyn Hub",
-                Icon = "info",
-                ImageSource = "Material",
-                Content = "Please select a server hop option first."
-            })
+            Noti.new("error", "Celvyn Hub", "Please Choose option first", true, 5)
         end
     end
 })
