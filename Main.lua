@@ -317,6 +317,13 @@ local Button = cTab:CreateButton({
   end
 })
 
+local Button = cTab:CreateButton({
+  Name = "Mortal V2",
+  Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/UNIVERSAL%20AIMBOT"))()
+    end 
+})
+
 cTab:CreateSection("Esp Section")
 
 local Button = cTab:CreateButton({
