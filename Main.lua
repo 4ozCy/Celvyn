@@ -567,3 +567,17 @@ local Button = mTab:CreateButton({
         end
     end   
 })
+
+local sgTab = Window:CreateTab({
+    Name = "Setting",
+    Icon = "settings",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+local Button = sgTab:CreateButton({
+  Name = "Destroy Ui",
+  Callback = function()
+Luna:Destroy()
+   end 
+})
