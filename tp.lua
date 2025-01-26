@@ -1,6 +1,10 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/ui.lua"))()
+local Noti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
+
+Noti.new("success", "Welcome To Celvyn!", "Thank you for using our script.", true, 5)
+
+local library = loadstring(game:HttpGet('https://pastebin.com/raw/EsSJE8Zm', true))()
     
-local w = library:Window("Celvyn")
+local w = library:Window("Celvyn Hub")
 
 w:Textbox("Username", "", function(text)
     targetUsername = text
