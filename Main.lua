@@ -144,7 +144,7 @@ local TeleportButton = Tab:CreateButton({
     Name = "Teleport to Player",
     Description = nil,
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/refs/heads/main/tp.lua"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/XSmS9zZQ"))()
     end
 })
 
