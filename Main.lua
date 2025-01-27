@@ -1,11 +1,7 @@
 local Noti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
-
 Noti.new("success", "Welcome To Celvyn!", "Thank you for using our script.", true, 5)
-
 loadstring(game:HttpGet('https://pastebin.com/raw/M5ASu6cf', true))()
-
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
-
 local Window = Luna:CreateWindow({
     Name = "Celvyn",
     Subtitle = "Beta",
@@ -482,7 +478,7 @@ mTab:CreateDivider()
 
 local function getMusicIDs()
     local musicIDs = {}
-    local file = game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/main/music_ids.txt")
+    local file = readfile("music_ids.txt")
     for line in file:gmatch("[^\r\n]+") do
         table.insert(musicIDs, tonumber(line))
     end
