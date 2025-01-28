@@ -234,8 +234,15 @@ if ToEnable.FullBright then
 local Button = Tab:CreateButton({
    Name = "Tpwalk",
    Callback = function()
-   loadstring(game:HttpGet('https://pastebin.com/raw/i5c8a0tv', true))()
+   loadstring(game:HttpGet('https://celvyn.site/tpwalk'))()
   end
+})
+
+local Button = Tab:CreateButton({
+   Name = "Touch f1ing",
+   callback = function()
+loadstring(game:HttpGet('https://celvyn.site/tf'))()
+  end 
 })
 
 local Button = Tab:CreateButton({
@@ -312,7 +319,7 @@ local Button = cTab:CreateButton({
    Name = "Celvyn Aimbot",
    Description = nil,
    Callback = function()
-   loadstring(game:HttpGet('https://pastebin.com/raw/QE0GzMDq', true))()
+   loadstring(game:HttpGet('https://celvyn.site/aimbot'))()
   end
 })
 
@@ -328,7 +335,7 @@ cTab:CreateSection("Esp Section")
 local Button = cTab:CreateButton({
   Name = "Celvyn esp",
   Callback = function()
-  loadstring(game:HttpGet('https://pastebin.com/raw/Hsvmj2mw', true))()
+  loadstring(game:HttpGet('https://celvyn.site/esp'))()
   end 
 })
 
