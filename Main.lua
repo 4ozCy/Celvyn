@@ -481,7 +481,7 @@ mTab:CreateDivider()
 
 local function getMusicIDs()
     local musicIDs = {}
-    local file = readfile("music_ids.txt")
+    local file = game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/main/music_ids.txt")
     for line in file:gmatch("[^\r\n]+") do
         table.insert(musicIDs, tonumber(line))
     end
