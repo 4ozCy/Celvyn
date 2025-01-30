@@ -581,6 +581,14 @@ local Button = mTab:CreateButton({
     end   
 })
 
+local Button = mTab:CreateButton({
+   Name = "Submit music id",
+  Description = "Please only submit public music id",
+  Callback = function()
+loadatring(game:HttpGet('https://celvyn.site/submitid'))()
+    end 
+})
+
 local sgTab = Window:CreateTab({
     Name = "Setting",
     Icon = "settings",
