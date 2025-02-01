@@ -583,7 +583,7 @@ local Button = mTab:CreateButton({
 
 local Button = mTab:CreateButton({
    Name = "Submit music id",
-  Description = "Please only submit public music id",
+  Description = nil,
   Callback = function()
 loadatring(game:HttpGet('https://celvyn.site/submitid'))()
     end 
