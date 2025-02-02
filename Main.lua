@@ -311,8 +311,6 @@ local cTab = Window:CreateTab({
     ShowTitle = true
 })
 
-cTab:CreateDivider()
-
 cTab:CreateSection("Aimbot Section")
 
 local Button = cTab:CreateButton({
