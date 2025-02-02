@@ -360,8 +360,6 @@ local sTab = Window:CreateTab({
     ShowTitle = true
 })
 
-sTab:CreateDivider()
-
 local selectedOption
 
 local Dropdown = sTab:CreateDropdown({
@@ -484,8 +482,6 @@ local mTab = Window:CreateTab({
     ShowTitle = true
 })
 
-mTab:CreateDivider()
-
 local function getMusicIDs()
     local musicIDs = {}
     local file = game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/main/music_ids.txt")
@@ -582,11 +578,11 @@ local Button = mTab:CreateButton({
 })
 
 local Button = mTab:CreateButton({
-   Name = "Submit music id",
-  Description = nil,
-  Callback = function()
-loadatring(game:HttpGet('https://celvyn.site/submitid'))()
-    end 
+    Name = "Submit id",
+    Description = nil,
+    Callback = function()
+    loadstring(game:HttpGet('https://celvyn.site/submitid'))()
+    end   
 })
 
 local sgTab = Window:CreateTab({
