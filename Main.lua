@@ -584,8 +584,8 @@ local Button = mTab:CreateButton({
 })
 
 local Paragraph = mTab:CreateParagraph({
-	Title = "Note",
-	Text = "is you wanted to know if we put ur song id in go to our website https://celvyn.site/songid"
+	Title = "Note:",
+	Text = "is you wanted to know if we put ur song id in go to our website"
 })
 
 local Button = mTabCreateButton({
