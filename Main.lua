@@ -592,7 +592,6 @@ local Button = mTab:CreateButton({
     Name = "website link",
     Callback = function()
 setclipboard("https://celvyn.site/songid")
- else
   Noti.new("success", "Copy Success", "Website link is in your clipboard", true, 5)
    end
 })
