@@ -588,8 +588,8 @@ local Paragraph = mTab:CreateParagraph({
 	Text = "is you wanted to know if we put ur song id in go to our website"
 })
 
-local Button = mTabCreateButton({
-    Name = "copy our website",
+local Button = mTab:CreateButton({
+    Name = "website link",
     Callback = function()
 setclipboard("https://celvyn.site/songid")
    end
