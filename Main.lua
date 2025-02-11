@@ -577,10 +577,22 @@ local Button = mTab:CreateButton({
 
 local Button = mTab:CreateButton({
     Name = "Submit id",
-    Description = nil,
+    Description = "please only submit public song ID",
     Callback = function()
     loadstring(game:HttpGet('https://celvyn.site/submitid'))()
     end   
+})
+
+local Paragraph = mTab:CreateParagraph({
+	Title = "Note",
+	Text = "is you wanted to know if we put ur song id in go to our website https://celvyn.site/songid"
+})
+
+local Button = mTabCreateButton({
+    Name = "copy our website",
+    Callback = function()
+setclipboard("https://celvyn.site/songid")
+   end
 })
 
 local sgTab = Window:CreateTab({
