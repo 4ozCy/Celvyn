@@ -1,8 +1,6 @@
 local Noti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
 Noti.new("success", "Welcome To Celvyn!", "Thank you for using our script.", true, 5)
 
-loadstring(game:HttpGet('https://celvyn.site/fps'))()
-
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/main/source.lua", true))()
 
 local Window = Luna:CreateWindow({
@@ -143,7 +141,7 @@ local TeleportButton = Tab:CreateButton({
     Name = "Teleport to Player",
     Description = nil,
     Callback = function()
-loadstring(game:HttpGet("https://celvyn.site/tp"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/XSmS9zZQ"))()
     end
 })
 
@@ -232,20 +230,6 @@ if ToEnable.FullBright then
 })
 
 local Button = Tab:CreateButton({
-   Name = "Tpwalk",
-   Callback = function()
-   loadstring(game:HttpGet('https://celvyn.site/tpwalk'))()
-  end
-})
-
-local Button = Tab:CreateButton({
-   Name = "Touch f1ing",
-   callback = function()
-loadstring(game:HttpGet('https://celvyn.site/tf'))()
-  end 
-})
-
-local Button = Tab:CreateButton({
   Name = "disable leaderboard (Permanent)",
   Callback = function()
  local StarterGui = game:GetService("StarterGui")
@@ -305,27 +289,10 @@ local Slider = Tab:CreateSlider({
 })
 
 local cTab = Window:CreateTab({
-    Name = "Aimbot & Esp",
+    Name = "Esp",
     Icon = "radio_button_checked",
     ImageSource = "Material",
     ShowTitle = true
-})
-
-cTab:CreateSection("Aimbot Section")
-
-local Button = cTab:CreateButton({
-   Name = "Celvyn Aimbot",
-   Description = nil,
-   Callback = function()
-   loadstring(game:HttpGet('https://celvyn.site/aimbot'))()
-  end
-})
-
-local Button = cTab:CreateButton({
-  Name = "Mortal V2",
-  Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/yzeedw/Mortalv2-main/main/UNIVERSAL%20AIMBOT"))()
-    end 
 })
 
 cTab:CreateSection("Esp Section")
@@ -333,14 +300,14 @@ cTab:CreateSection("Esp Section")
 local Button = cTab:CreateButton({
   Name = "Celvyn esp",
   Callback = function()
-  loadstring(game:HttpGet('https://celvyn.site/esp'))()
-  end 
+loadstring(game:HttpGet(""))()
+    end
 })
 
 local Button = cTab:CreateButton({
   Name = "Arrow esp",
   Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Eazvy/UILibs/refs/heads/main/ESP/Arrows/Example"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/Hsvmj2mw"))()
     end
 })
 
@@ -573,28 +540,6 @@ local Button = mTab:CreateButton({
             playRandomMusic()
         end
     end   
-})
-
-local Button = mTab:CreateButton({
-    Name = "Submit id",
-    Description = "please only submit PUBLIC SONG ID",
-    Callback = function()
-    loadstring(game:HttpGet('https://celvyn.site/submitid'))()
-    end   
-})
-
-local Paragraph = mTab:CreateParagraph({
-	Title = "Note:",
-	Text = "IS YOU WANTED TO KNOW IF WE PUT UR SONG ID IN GO TO OUR WEBSITE"
-})
-
-
-local Button = mTab:CreateButton({
-    Name = "website link",
-    Callback = function()
-setclipboard("https://celvyn.site/songid")
-  Noti.new("success", "Copy Success", "link in your clipboard", true, 5)
-   end
 })
 
 local sgTab = Window:CreateTab({
