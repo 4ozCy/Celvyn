@@ -5,7 +5,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "Celvyn - Beta",
-   Icon = 0,
+   Icon = 95348809749180,
    LoadingTitle = "Rayfield Interface Suite",
    LoadingSubtitle = "by Sirius",
    Theme = "Default",
@@ -37,7 +37,9 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("Main", "rewind")
+local Tab = Window:CreateTab("Main", "box")
+
+local Section = Tab:CreateSection("Main")
 
 local noclip = false
 local function enableNoclip()
@@ -105,7 +107,7 @@ local Toggle = Tab:CreateToggle({
     end
 })
 
-Tab:CreateSection("Extra Section")
+local Section = Tab:CreateSection("Extra Section")
 
 local Button = Tab:CreateButton({
     Name = "Permeant tptool",
@@ -242,7 +244,7 @@ end)
     end 
 })		
 
-Tab:CreateSection("Slider Section")
+local Section = Tab:CreateSection("Sider Section")
 
 local Slider = Tab:CreateSlider({
     Name = "Player Speed",
@@ -284,19 +286,23 @@ local Slider = Tab:CreateSlider({
     end
 })
 
-local cTab = Window:CreateTab({
-    Name = "Esp",
-    Icon = "radio_button_checked",
-    ImageSource = "Material",
-    ShowTitle = true
+local cTab = Window:CreateTab("Combat", "swords")
+
+local Section = cTab:CreateSection("Aimbot Section")
+
+local Button = cTab:CreateButton({
+  Name = "Celvyn Aimbot",
+  Callback = function()
+loadstring(game:HttpGet("https://celvyn.site/aimbot"))()
+    end
 })
 
-cTab:CreateSection("Esp Section")
+local Section = cTab:CreateSection("Esp Section")
 
 local Button = cTab:CreateButton({
   Name = "Celvyn esp",
   Callback = function()
-loadstring(game:HttpGet("https://pastebin.com/raw/Hsvmj2mw"))()
+loadstring(game:HttpGet("https://celvyn.site/esp"))()
     end
 })
 
@@ -314,12 +320,7 @@ loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
     end 
 })
 
-local sTab = Window:CreateTab({
-    Name = "Server",
-    Icon = "dns",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+local sTab = Window:CreateTab("Server", "server")
 
 local selectedOption
 
@@ -328,7 +329,6 @@ local Dropdown = sTab:CreateDropdown({
     Options = {"None", "Random Server", "low Player Server", "low ping Server"},
     CurrentOption = {"None"},
     MultipleOptions = false,
-    SpecialType = nil,
     Callback = function(option)
         selectedOption = option
     end
@@ -436,12 +436,7 @@ local Button = sTab:CreateButton({
     end 
 })
 
-local mTab = Window:CreateTab({
-    Name = "Music",
-    Icon = "library_music",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+local mTab = Window:CreateTab("Music", "music")
 
 local function getMusicIDs()
     local musicIDs = {}
@@ -538,16 +533,11 @@ local Button = mTab:CreateButton({
     end   
 })
 
-local sgTab = Window:CreateTab({
-    Name = "Setting",
-    Icon = "settings",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+local Tab = Window:CreateTab("Setting", "settings")
 
 local Button = sgTab:CreateButton({
   Name = "Destroy Ui",
   Callback = function()
-Luna:Destroy()
+Rayfield:Destroy()
    end 
 })
