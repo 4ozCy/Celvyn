@@ -5,7 +5,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "Celvyn - Beta",
-   Icon = 95348809749180,
+   Icon = 119663846201777,
    LoadingTitle = "Rayfield Interface Suite",
    LoadingSubtitle = "by Sirius",
    Theme = "Default",
@@ -533,7 +533,7 @@ local Button = mTab:CreateButton({
     end   
 })
 
-local Tab = Window:CreateTab("Setting", "settings")
+local sgTab = Window:CreateTab("Setting", "settings")
 
 local Button = sgTab:CreateButton({
   Name = "Destroy Ui",
