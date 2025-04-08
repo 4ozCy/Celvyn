@@ -319,99 +319,21 @@ local Section = sTab:CreateSection("Server Section")
 local Button = sTab:CreateButton({
     Name = "Random Server Hop",
     Callback = function()
-      local HttpService = game:GetService("HttpService")
-local Servers = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
-local Server, Next = nil, nil
-local function ListServers(cursor)
-    local Raw = game:HttpGet(Servers .. ((cursor and "&cursor=" .. cursor) or ""))
-    return HttpService:JSONDecode(Raw)
-end
-repeat
-    local Servers = ListServers(Next)
-    Server = Servers.data[math.random(1, (#Servers.data / 3))]
-    Next = Servers.nextPageCursor
-until Server
-if Server.playing < Server.maxPlayers and Server.id ~= game.JobId then
-    TeleportService:TeleportToPlaceInstance(game.PlaceId, Server.id, game.Players.LocalPlayer)
-  end	
+      
     end 
 })
 
 local Button = sTab:CreateButton({
     Name = "low Player Server Hop",
     Callback = function()
-      local TeleportService = game:GetService("TeleportService")
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
-            local function getServerList()
-                local servers = {}
-                local success, result = pcall(function()
-                    return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
-                end)
-                if success then
-                    for _, server in pairs(result.data) do
-                        if server.playing < server.maxPlayers then
-                            table.insert(servers, {id = server.id, players = server.playing})
-                        end
-                    end
-                    table.sort(servers, function(a, b) return a.players < b.players end)
-                end
-                return servers
-            end
-
-            local function serverHop()
-                local servers = getServerList()
-                if #servers > 0 then
-                    TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[1].id, LocalPlayer)
-                else
-                   print("error") 
-                end
-            end
-
-         serverHop()
+      
     end 
 })
 
 local Button = sTab:CreateButton({
     Name = "low Ping Server Hop",
     Callback = function()
-      local HTTPService = game:GetService("HttpService")
-            local TeleportService = game:GetService("TeleportService")
-            local StatsService = game:GetService("Stats")
-
-            local function fetchServersData(placeId, limit)
-                local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=%d", placeId, limit)
-                local success, response = pcall(function()
-                    return HTTPService:JSONDecode(game:HttpGet(url))
-                end)
-
-                if success and response and response.data then
-                    return response.data
-                end
-
-                return nil
-            end
-
-            local placeId = game.PlaceId
-            local serverLimit = 100
-            local servers = fetchServersData(placeId, serverLimit)
-
-            if not servers then
-                return
-            end
-
-            local lowestPingServer = servers[1]
-
-            for _, server in pairs(servers) do
-                if server["ping"] < lowestPingServer["ping"] and server.maxPlayers > server.playing then
-                    lowestPingServer = server
-                end
-            end
-
-            TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
-      end
+      
     end 
 })
 
