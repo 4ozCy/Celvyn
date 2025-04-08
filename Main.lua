@@ -334,96 +334,72 @@ local Dropdown = sTab:CreateDropdown({
     end
 })
 
+local function notify(title, message, duration)
+    Noti.new("info", title, message, true, duration or 5)
+end
+
+local function getServers()
+    local HttpService = game:GetService("HttpService")
+    local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+    
+    local success, response = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet(url))
+    end)
+    
+    if not success or not response or not response.data then
+        notify("Server Hop", "Failed to fetch server list", 5)
+        return nil
+    end
+    
+    local currentJobId = tostring(game.JobId)
+    local filtered = {}
+    
+    for _, server in ipairs(response.data) do
+        if tostring(server.id) ~= currentJobId and server.playing < server.maxPlayers then
+            table.insert(filtered, server)
+        end
+    end
+    
+    return filtered
+end
+
+local function teleportToServer(serverId)
+    local TeleportService = game:GetService("TeleportService")
+    pcall(function()
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, serverId)
+    end)
+end
+
 local Button = sTab:CreateButton({
     Name = "Server Hop",
     Callback = function()
-      if selectedOption == "None" then 
-Noti.new("error", "Celvyn Hub", "Please Choose option first", true, 5)	
-    elseif selectedOption == "Random Server" then 
-local TeleportService = game:GetService("TeleportService")
-local HttpService = game:GetService("HttpService")
-local Servers = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
-local Server, Next = nil, nil
-local function ListServers(cursor)
-    local Raw = game:HttpGet(Servers .. ((cursor and "&cursor=" .. cursor) or ""))
-    return HttpService:JSONDecode(Raw)
-end
-repeat
-    local Servers = ListServers(Next)
-    Server = Servers.data[math.random(1, (#Servers.data / 3))]
-    Next = Servers.nextPageCursor
-until Server
-if Server.playing < Server.maxPlayers and Server.id ~= game.JobId then
-    TeleportService:TeleportToPlaceInstance(game.PlaceId, Server.id, game.Players.LocalPlayer)
-  end	
-	elseif selectedOption == "low Player Server" then
-            local TeleportService = game:GetService("TeleportService")
-            local HttpService = game:GetService("HttpService")
-            local Players = game:GetService("Players")
-            local LocalPlayer = Players.LocalPlayer
-
-            local function getServerList()
-                local servers = {}
-                local success, result = pcall(function()
-                    return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
-                end)
-                if success then
-                    for _, server in pairs(result.data) do
-                        if server.playing < server.maxPlayers then
-                            table.insert(servers, {id = server.id, players = server.playing})
-                        end
-                    end
-                    table.sort(servers, function(a, b) return a.players < b.players end)
-                end
-                return servers
-            end
-
-            local function serverHop()
-                local servers = getServerList()
-                if #servers > 0 then
-                    TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[1].id, LocalPlayer)
-                else
-                    Noti.new("info", "Celvyn Hub", "No server available.", true, 5)
-                end
-            end
-
-            serverHop()
-
+        if selectedOption == "None" then 
+            notify("Celvyn Hub", "Please choose an option first", 5)
+            return
+        end
+        
+        local servers = getServers()
+        if not servers or #servers == 0 then
+            notify("Celvyn Hub", "No available servers found", 5)
+            return
+        end
+        
+        local targetServer = nil
+        
+        if selectedOption == "Random Server" then
+            targetServer = servers[math.random(1, #servers)]
+        elseif selectedOption == "low Player Server" then
+            table.sort(servers, function(a, b) return a.playing < b.playing end)
+            targetServer = servers[1]
         elseif selectedOption == "low ping Server" then
-            local HTTPService = game:GetService("HttpService")
-            local TeleportService = game:GetService("TeleportService")
-            local StatsService = game:GetService("Stats")
-
-            local function fetchServersData(placeId, limit)
-                local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=%d", placeId, limit)
-                local success, response = pcall(function()
-                    return HTTPService:JSONDecode(game:HttpGet(url))
-                end)
-
-                if success and response and response.data then
-                    return response.data
-                end
-
-                return nil
-            end
-
-            local placeId = game.PlaceId
-            local serverLimit = 100
-            local servers = fetchServersData(placeId, serverLimit)
-
-            if not servers then
-                return
-            end
-
-            local lowestPingServer = servers[1]
-
-            for _, server in pairs(servers) do
-                if server["ping"] < lowestPingServer["ping"] and server.maxPlayers > server.playing then
-                    lowestPingServer = server
-                end
-            end
-
-            TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
+            targetServer = servers[math.random(1, math.min(10, #servers))]
+        end
+        
+        if targetServer then
+            notify("Celvyn Hub", "Attempting to server hop...", 3)
+            teleportToServer(targetServer.id)
+        else
+            notify("Celvyn Hub", "Failed to select a server", 5)
         end
     end
 })
