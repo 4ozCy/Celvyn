@@ -319,21 +319,21 @@ local Section = sTab:CreateSection("Server Section")
 local Button = sTab:CreateButton({
     Name = "Random Server Hop",
     Callback = function()
-      
+      loadstring(game:HttpGet('https://pastebin.com/raw/nKJ2FB1S'))()
     end 
 })
 
 local Button = sTab:CreateButton({
     Name = "low Player Server Hop",
     Callback = function()
-      
+      loadstring(game:HttpGet('https://pastebin.com/raw/Tbmzndze'))()
     end 
 })
 
 local Button = sTab:CreateButton({
     Name = "low Ping Server Hop",
     Callback = function()
-      
+     loadstring(game:HttpGet('https://pastebin.com/raw/Xvqs6paK'))()
     end 
 })
 
