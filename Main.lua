@@ -419,6 +419,8 @@ local Button = sTab:CreateButton({
 
 local mTab = Window:CreateTab("Music", "music")
 
+local Section = mTab:CreateSection("Music Section")
+
 local function getMusicIDs()
     local musicIDs = {}
     local file = game:HttpGet("https://raw.githubusercontent.com/4ozCy/Celvyn/main/music_ids.txt")
@@ -477,32 +479,38 @@ local Toggle = mTab:CreateToggle({
     end,
 })
 
-local Slider = mTab:CreateSlider({
-    Name = "Volume",
-    Range = {0,200},
-    increment = 1,
-    Suffix = "Volume",
-    CurrentValue = 1,
-    Callback = function(Value)
-        Volume = Value
-        if Sound then
-            Sound.Volume = Volume
-        end
-    end,
+local VolumeInput = mTab:CreateInput({
+	Name = "Volume",
+	CurrentValue = tostring(Volume),
+	PlaceholderText = "0 - 200",
+	RemoveTextAfterFocusLost = false,
+	Flag = "VolumeInput",
+	Callback = function(text)
+		local value = tonumber(text)
+		if value then
+			Volume = math.clamp(value, 0, 200)
+			if Sound then
+				Sound.Volume = Volume
+			end
+		end
+	end,
 })
 
-local Slider = mTab:CreateSlider({
-    Name = "Pitch",
-    Range = {0.5, 2},
-    Increment = 0.1,
-    Suffix = "Pitch",
-    CurrentValue = 1,
-    Callback = function(Value)
-        Pitch = Value
-        if Sound then
-            Sound.PlaybackSpeed = Pitch
-        end
-    end,
+local PitchInput = mTab:CreateInput({
+	Name = "Pitch",
+	CurrentValue = tostring(Pitch),
+	PlaceholderText = "0.5 - 2.0",
+	RemoveTextAfterFocusLost = false,
+	Flag = "PitchInput",
+	Callback = function(text)
+		local value = tonumber(text)
+		if value then
+			Pitch = math.clamp(value, 0.5, 2)
+			if Sound then
+				Sound.PlaybackSpeed = Pitch
+			end
+		end
+	end,
 })
 
 local Button = mTab:CreateButton({
