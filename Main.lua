@@ -479,9 +479,10 @@ local Toggle = mTab:CreateToggle({
 
 local Slider = mTab:CreateSlider({
     Name = "Volume",
-    Range = {0,100},
+    Range = {0,200},
     increment = 1,
-    CurrentValue = Volume,
+    Suffix = "Volume",
+    CurrentValue = 1,
     Callback = function(Value)
         Volume = Value
         if Sound then
@@ -494,7 +495,8 @@ local Slider = mTab:CreateSlider({
     Name = "Pitch",
     Range = {0.5, 2},
     Increment = 0.1,
-    CurrentValue = Pitch,
+    Suffix = "Pitch",
+    CurrentValue = 1,
     Callback = function(Value)
         Pitch = Value
         if Sound then
