@@ -68,7 +68,7 @@ local Toggle = Tab:CreateToggle({
         else
             disableNoclip()
         end
-    end
+    end,
 })
 
 local antiAFK = false
@@ -100,7 +100,7 @@ local Toggle = Tab:CreateToggle({
         else
             disableAntiAFK()
         end
-    end
+    end,
 })
 
 local Section = Tab:CreateSection("Extra Section")
@@ -130,18 +130,11 @@ local Button = Tab:CreateButton({
     end
 })
 
-local TeleportButton = Tab:CreateButton({
-    Name = "Teleport to Player",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/XSmS9zZQ"))()
-    end
-})
-
 local Button = Tab:CreateButton({
     Name = "Unc Test",
     Callback = function()
         loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-UNC-Test-13114"))()
-    end
+    end,
 })
 
 local Button = Tab:CreateButton({
@@ -216,7 +209,7 @@ local Button = Tab:CreateButton({
             Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
             Lighting.Outlines = true
         end
-    end
+    end,
 })
 
 local Button = Tab:CreateButton({
@@ -233,12 +226,92 @@ local Button = Tab:CreateButton({
         game.Players.LocalPlayer.CharacterAdded:Connect(function()
             disableLeaderboard()
         end)
-    end 
+    end,
 })       
 
-local Section = Tab:CreateSection("Sider Section")
+local pTab = Window:CreateTab("Player", "user")
 
-local Slider = Tab:CreateSlider({
+local Section = pTab:CreateSection("Player Section")
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local inputText = ""
+local currentTween = nil
+local tweenSpeed = 10
+
+local function findPlayerByShortName(partialName)
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player.Name:lower():sub(1, #partialName) == partialName:lower() then
+			return player
+		end
+	end
+	return nil
+end
+
+local Input = pTab:CreateInput({
+	Name = "Teleport Player",
+	CurrentValue = "",
+	PlaceholderText = "Enter Username",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(text)
+		inputText = text
+	end,
+})
+
+local Button = pTab:CreateButton({
+	Name = "Teleport",
+	Callback = function()
+		local targetPlayer = findPlayerByShortName(inputText)
+		if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			local targetHRP = targetPlayer.Character.HumanoidRootPart
+			Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+			Character:WaitForChild("HumanoidRootPart").CFrame = targetHRP.CFrame + Vector3.new(0, 3, 0)
+		end
+	end,
+})
+
+local Toggle = pTab:CreateToggle({
+	Name = "Tween to Player",
+	CurrentValue = false,
+	Callback = function(isOn)
+		if isOn then
+			local targetPlayer = findPlayerByShortName(inputText)
+			if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				local targetHRP = targetPlayer.Character.HumanoidRootPart
+				local distance = (targetHRP.Position - HumanoidRootPart.Position).Magnitude
+				local duration = distance / math.clamp(tweenSpeed, 1, 100)
+				local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+				local goal = { CFrame = targetHRP.CFrame + Vector3.new(0, 3, 0) }
+				currentTween = TweenService:Create(HumanoidRootPart, tweenInfo, goal)
+				currentTween:Play()
+			end
+		else
+			if currentTween then
+				currentTween:Cancel()
+				currentTween = nil
+			end
+		end
+	end,
+})
+
+local Slider = pTab:CreateSlider({
+	Name = "Tween Speed",
+	Range = {1, 1000},
+	Increment = 1,
+	Suffix = "Speed",
+	CurrentValue = 16,
+	Callback = function(Value)
+		tweenSpeed = Value
+	end,
+})
+
+local Section = pTab:CreateSection("Slider Section")
+
+local Slider = pTab:CreateSlider({
     Name = "Player Speed",
     Range = {0, 2000},
     Increment = 1,
@@ -249,33 +322,33 @@ local Slider = Tab:CreateSlider({
             local humanoid = player.Character:FindFirstChild("Humanoid")
             humanoid.WalkSpeed = Value
         end
-    end
+    end,
 })
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
-local Slider = Tab:CreateSlider({
+local Slider = pTab:CreateSlider({
     Name = "Jump Power",
     Range = {0, 200},
     Increment = 5,
     CurrentValue = humanoid.JumpPower,
     Callback = function(Value)
         humanoid.JumpPower = Value
-    end
+    end,
 })
 
 local Field0fView = 70
 
-local Slider = Tab:CreateSlider({
+local Slider = pTab:CreateSlider({
     Name = "Field of View",
     Range = {10, 120},
     Increment = 1,
     CurrentValue = workspace.CurrentCamera.FieldOfView,
     Callback = function(Value)
         workspace.CurrentCamera.FieldOfView = Value
-    end
+    end,
 })
 
 local cTab = Window:CreateTab("Combat", "swords")
@@ -286,7 +359,7 @@ local Button = cTab:CreateButton({
     Name = "Celvyn Aimbot",
     Callback = function()
         loadstring(game:HttpGet("https://celvyn.site/aimbot"))()
-    end
+    end,
 })
 
 local Section = cTab:CreateSection("Esp Section")
@@ -295,21 +368,21 @@ local Button = cTab:CreateButton({
     Name = "Celvyn esp",
     Callback = function()
         loadstring(game:HttpGet("https://celvyn.site/esp"))()
-    end
+    end,
 })
 
 local Button = cTab:CreateButton({
     Name = "Arrow esp",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/Hsvmj2mw"))()
-    end
+    end,
 })
 
 local Button = cTab:CreateButton({
     Name = "Radar esp",
     Callback = function()
         loadstring(game:HttpGet('https://pastebin.com/raw/3KMbR7vL', true))()
-    end 
+    end,
 })
 
 local sTab = Window:CreateTab("Server", "server")
@@ -320,28 +393,28 @@ local Button = sTab:CreateButton({
     Name = "Random Server Hop",
     Callback = function()
       loadstring(game:HttpGet('https://pastebin.com/raw/nKJ2FB1S'))()
-    end 
+    end,
 })
 
 local Button = sTab:CreateButton({
     Name = "low Player Server Hop",
     Callback = function()
       loadstring(game:HttpGet('https://pastebin.com/raw/Tbmzndze'))()
-    end 
+    end,
 })
 
 local Button = sTab:CreateButton({
     Name = "low Ping Server Hop",
     Callback = function()
      loadstring(game:HttpGet('https://pastebin.com/raw/Xvqs6paK'))()
-    end 
+    end,
 })
 
 local Button = sTab:CreateButton({
     Name = "Rejoin",
     Callback = function()
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
-    end 
+    end,
 })
 
 local mTab = Window:CreateTab("Music", "music")
@@ -390,7 +463,7 @@ local Toggle = mTab:CreateToggle({
                 Sound = nil
             end
         end
-    end
+    end,
 })
 
 local Toggle = mTab:CreateToggle({
@@ -401,7 +474,7 @@ local Toggle = mTab:CreateToggle({
         if Sound then
             Sound.Looped = LoopMusic
         end
-    end
+    end,
 })
 
 local Slider = mTab:CreateSlider({
@@ -414,7 +487,7 @@ local Slider = mTab:CreateSlider({
         if Sound then
             Sound.Volume = Volume
         end
-    end
+    end,
 })
 
 local Slider = mTab:CreateSlider({
@@ -427,7 +500,7 @@ local Slider = mTab:CreateSlider({
         if Sound then
             Sound.PlaybackSpeed = Pitch
         end
-    end
+    end,
 })
 
 local Button = mTab:CreateButton({
@@ -437,7 +510,7 @@ local Button = mTab:CreateButton({
             Sound:Stop()
             playRandomMusic()
         end
-    end   
+    end,
 })
 
 local sgTab = Window:CreateTab("Setting", "settings")
@@ -446,5 +519,5 @@ local Button = sgTab:CreateButton({
     Name = "Destroy Ui",
     Callback = function()
         Rayfield:Destroy()
-    end 
+    end,
 })
