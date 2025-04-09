@@ -35,7 +35,7 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("Main", "box")
 
-local Section = Tab:CreateSection("Main")
+local Section = Tab:CreateSection("Main Section")
 
 local noclip = false
 local function enableNoclip()
@@ -482,7 +482,7 @@ local Toggle = mTab:CreateToggle({
 local VolumeInput = mTab:CreateInput({
 	Name = "Volume",
 	CurrentValue = tostring(Volume),
-	PlaceholderText = "0 - 200",
+	PlaceholderText = "Enter Volume 0 - 200",
 	RemoveTextAfterFocusLost = false,
 	Flag = "VolumeInput",
 	Callback = function(text)
@@ -499,7 +499,7 @@ local VolumeInput = mTab:CreateInput({
 local PitchInput = mTab:CreateInput({
 	Name = "Pitch",
 	CurrentValue = tostring(Pitch),
-	PlaceholderText = "0.5 - 2.0",
+	PlaceholderText = "Enter Pitch 0.5 - 2.0",
 	RemoveTextAfterFocusLost = false,
 	Flag = "PitchInput",
 	Callback = function(text)
@@ -524,6 +524,8 @@ local Button = mTab:CreateButton({
 })
 
 local sgTab = Window:CreateTab("Setting", "settings")
+
+local Section = sgTab:CreateSection("Setting Section")
 
 local Button = sgTab:CreateButton({
     Name = "Destroy Ui",
