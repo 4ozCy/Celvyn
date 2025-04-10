@@ -106,6 +106,13 @@ local Toggle = Tab:CreateToggle({
 local Section = Tab:CreateSection("Extra Section")
 
 local Button = Tab:CreateButton({
+    Name = "Infinite yeld",
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end,
+})
+
+local Button = Tab:CreateButton({
     Name = "Permeant tptool",
     Callback = function()
         local ToolName = "tptool "
@@ -127,7 +134,7 @@ local Button = Tab:CreateButton({
         end
         game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
         createTool()
-    end
+    end,
 })
 
 local Button = Tab:CreateButton({
