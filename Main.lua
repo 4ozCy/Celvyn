@@ -442,6 +442,7 @@ local IsPlayingMusic = false
 local Sound
 local Volume = 1
 local Pitch = 1
+local LoopMusic = false
 
 local function playRandomMusic()
     if not Sound or not Sound:IsDescendantOf(game.Workspace) then
@@ -450,9 +451,10 @@ local function playRandomMusic()
     Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
     Sound.Volume = Volume
     Sound.PlaybackSpeed = Pitch
+    Sound.Looped = LoopMusic
     Sound:Play()
     Sound.Ended:Connect(function()
-        if IsPlayingMusic then
+        if IsPlayingMusic and not LoopMusic then
             playRandomMusic()
         end
     end)
@@ -475,7 +477,7 @@ local Toggle = mTab:CreateToggle({
     end,
 })
 
-local Toggle = mTab:CreateToggle({
+local LoopToggle = mTab:CreateToggle({
     Name = "Loop Music",
     CurrentValue = false,
     Callback = function(Value)
@@ -529,6 +531,58 @@ local Button = mTab:CreateButton({
         end
     end,
 })
+
+local CustomSoundID = ""
+local IsPlayingCustom = false
+local CustomSound
+
+local Input = mTab:CreateInput({
+	Name = "Custom Music ID",
+	CurrentValue = "",
+	PlaceholderText = "Enter Sound ID",
+	RemoveTextAfterFocusLost = false,
+	Flag = "CustomSoundInput",
+	Callback = function(text)
+		if tonumber(text) then
+			CustomSoundID = "rbxassetid://" .. text
+			print("Custom Sound ID set to:", CustomSoundID)
+		else
+			warn("Invalid Sound ID")
+		end
+	end,
+})
+
+local Toggle = mTab:CreateToggle({
+	Name = "Play Custom Music",
+	CurrentValue = false,
+	Flag = "CustomMusicToggle",
+	Callback = function(Value)
+		IsPlayingCustom = Value
+		if IsPlayingCustom then
+			if CustomSoundID == "" then
+				warn("No Custom Sound ID set")
+				return
+			end
+
+			if not CustomSound or not CustomSound:IsDescendantOf(game.Workspace) then
+				CustomSound = Instance.new("Sound", game.Workspace)
+			end
+
+			CustomSound.SoundId = CustomSoundID
+			CustomSound.Volume = Volume
+			CustomSound.PlaybackSpeed = Pitch
+			CustomSound.Looped = false
+			CustomSound:Play()
+		else
+			if CustomSound then
+				CustomSound:Stop()
+				CustomSound:Destroy()
+				CustomSound = nil
+			end
+		end
+	end,
+})
+
 
 local sgTab = Window:CreateTab("Setting", "settings")
 
