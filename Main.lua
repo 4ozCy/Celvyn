@@ -442,7 +442,10 @@ local IsPlayingMusic = false
 local Sound
 local Volume = 1
 local Pitch = 1
-local LoopMusic = false
+local LoopMusic = false 
+local CustomSoundID = ""
+local IsPlayingCustom = false
+local CustomSound
 
 local function playRandomMusic()
     if not Sound or not Sound:IsDescendantOf(game.Workspace) then
@@ -458,83 +461,7 @@ local function playRandomMusic()
             playRandomMusic()
         end
     end)
-end
-
-local Toggle = mTab:CreateToggle({
-    Name = "Play Random Music",
-    CurrentValue = false,
-    Callback = function(Value)
-        IsPlayingMusic = Value
-        if IsPlayingMusic then
-            playRandomMusic()
-        else
-            if Sound then
-                Sound:Stop()
-                Sound:Destroy()
-                Sound = nil
-            end
-        end
-    end,
-})
-
-local LoopToggle = mTab:CreateToggle({
-    Name = "Loop Music",
-    CurrentValue = false,
-    Callback = function(Value)
-        LoopMusic = Value
-        if Sound then
-            Sound.Looped = LoopMusic
-        end
-    end,
-})
-
-local VolumeInput = mTab:CreateInput({
-	Name = "Volume",
-	CurrentValue = tostring(Volume),
-	PlaceholderText = "Enter Volume 0 - 200",
-	RemoveTextAfterFocusLost = false,
-	Flag = "VolumeInput",
-	Callback = function(text)
-		local value = tonumber(text)
-		if value then
-			Volume = math.clamp(value, 0, 200)
-			if Sound then
-				Sound.Volume = Volume
-			end
-		end
-	end,
-})
-
-local PitchInput = mTab:CreateInput({
-	Name = "Pitch",
-	CurrentValue = tostring(Pitch),
-	PlaceholderText = "Enter Pitch 0.5 - 2.0",
-	RemoveTextAfterFocusLost = false,
-	Flag = "PitchInput",
-	Callback = function(text)
-		local value = tonumber(text)
-		if value then
-			Pitch = math.clamp(value, 0.5, 2)
-			if Sound then
-				Sound.PlaybackSpeed = Pitch
-			end
-		end
-	end,
-})
-
-local Button = mTab:CreateButton({
-    Name = "Skip",
-    Callback = function()
-        if Sound then
-            Sound:Stop()
-            playRandomMusic()
-        end
-    end,
-})
-
-local CustomSoundID = ""
-local IsPlayingCustom = false
-local CustomSound
+end 
 
 local Input = mTab:CreateInput({
 	Name = "Custom Music ID",
@@ -583,6 +510,83 @@ local Toggle = mTab:CreateToggle({
 	end,
 })
 
+local Toggle = mTab:CreateToggle({
+    Name = "Play Random Music",
+    CurrentValue = false,
+    Callback = function(Value)
+        IsPlayingMusic = Value
+        if IsPlayingMusic then
+            playRandomMusic()
+        else
+            if Sound then
+                Sound:Stop()
+                Sound:Destroy()
+                Sound = nil
+            end
+        end
+    end,
+})
+
+local LoopToggle = mTab:CreateToggle({
+    Name = "Loop Music",
+    CurrentValue = false,
+    Callback = function(Value)
+        LoopMusic = Value
+        if Sound then
+            Sound.Looped = LoopMusic
+        end
+    end,
+})
+
+local Input = mTab:CreateInput({
+	Name = "Volume",
+	CurrentValue = tostring(Volume),
+	PlaceholderText = "Enter Volume 0 - 200",
+	RemoveTextAfterFocusLost = false,
+	Flag = "VolumeInput",
+	Callback = function(text)
+		local value = tonumber(text)
+		if value then
+			Volume = math.clamp(value, 0, 200)
+			if Sound then
+				Sound.Volume = Volume
+			end
+			if CustomSound then
+				CustomSound.Volume = Volume
+			end
+		end
+	end,
+})
+
+local Input = mTab:CreateInput({
+	Name = "Pitch",
+	CurrentValue = tostring(Pitch),
+	PlaceholderText = "Enter Pitch 0.5 - 2.0",
+	RemoveTextAfterFocusLost = false,
+	Flag = "PitchInput",
+	Callback = function(text)
+		local value = tonumber(text)
+		if value then
+			Pitch = math.clamp(value, 0.5, 2)
+			if Sound then
+				Sound.PlaybackSpeed = Pitch
+			end
+			if CustomSound then
+				CustomSound.PlaybackSpeed = Pitch
+			end
+		end
+	end,
+})
+
+local Button = mTab:CreateButton({
+    Name = "Skip",
+    Callback = function()
+        if Sound then
+            Sound:Stop()
+            playRandomMusic()
+        end
+    end,
+})
 
 local sgTab = Window:CreateTab("Setting", "settings")
 
