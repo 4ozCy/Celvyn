@@ -1,7 +1,15 @@
-local Noti = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
-Noti.new("success", "Welcome To Celvyn!", "Thank you for using our script.", true, 5)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua", true))() -- bypass Adonis anti cheat
+
+task.wait(0.6)
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+Rayfield:Notify({
+   Title = "Welcome To Celvyn!",
+   Content = "Thanks for using our script.",
+   Duration = 6.5,
+   Image = 119663846201777,
+})
 
 local Window = Rayfield:CreateWindow({
    Name = "Celvyn - Beta",
@@ -72,6 +80,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Save
     end,
 })
 
+local Button = Tab:CreateButton({
+     Name = "free gamepass",
+     Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/YhmL4rsf"))()
+    end,
+})
+			
 local Button = Tab:CreateButton({
     Name = "Permeant tptool",
     Callback = function()
@@ -179,6 +194,23 @@ local Button = Tab:CreateButton({
     end,
 })
 
+local Button = Tab:CreateButton({
+    Name = "disable leaderboard (Permanent)",
+    Callback = function()
+        local StarterGui = game:GetService("StarterGui")
+
+        local function disableLeaderboard()
+            StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+        end
+
+        disableLeaderboard()
+
+        game.Players.LocalPlayer.CharacterAdded:Connect(function()
+            disableLeaderboard()
+        end)
+    end,
+})
+
 local Section = Tab:CreateSection("Extra Section")
 
 local Toggle = Tab:CreateToggle({
@@ -223,24 +255,6 @@ local Toggle = Tab:CreateToggle({
         else
             disableAntiAFK()
         end
-    end,
-})
-
-
-local Button = Tab:CreateButton({
-    Name = "disable leaderboard (Permanent)",
-    Callback = function()
-        local StarterGui = game:GetService("StarterGui")
-
-        local function disableLeaderboard()
-            StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-        end
-
-        disableLeaderboard()
-
-        game.Players.LocalPlayer.CharacterAdded:Connect(function()
-            disableLeaderboard()
-        end)
     end,
 })       
 
