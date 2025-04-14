@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua", true))() -- bypass Adonis anti cheat
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua", true))() -- Adonis Bypass
 
 task.wait(0.6)
 
@@ -81,9 +81,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Save
 })
 
 local Button = Tab:CreateButton({
-     Name = "free gamepass",
+     Name = "wynerd V2",
      Callback = function()
-loadstring(game:HttpGet("https://pastebin.com/raw/YhmL4rsf"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Imalwibest/Imalwibest/main/wynerdV2.lua",true))()
+    end,
+})
+
+local Button = Tab:CreateButton({
+     Name = "Tool Giver",
+     Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/gametoolgiver.lua"))()
     end,
 })
 			
