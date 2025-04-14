@@ -7,7 +7,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 Rayfield:Notify({
    Title = "Welcome To Celvyn!",
    Content = "Thanks for using our script.",
-   Duration = 6.5,
+   Duration = 5,
    Image = 119663846201777,
 })
 
@@ -77,13 +77,6 @@ local Button = Tab:CreateButton({
      Name = "Dex Mobile",
      Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/raelhubfunctions/Save-scripts/refs/heads/main/DexMobile.lua"))()
-    end,
-})
-
-local Button = Tab:CreateButton({
-     Name = "wynerd V2",
-     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Imalwibest/Imalwibest/main/wynerdV2.lua",true))()
     end,
 })
 
