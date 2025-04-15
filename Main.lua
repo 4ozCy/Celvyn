@@ -17,7 +17,7 @@ local Window = Rayfield:CreateWindow({
    LoadingTitle = "Rayfield Interface Suite",
    LoadingSubtitle = "by Sirius",
    Theme = "Default",
-   DisableRayfieldPrompts = true,
+   DisableRayfieldPrompts = false,
    DisableBuildWarnings = false,
    ConfigurationSaving = {
       Enabled = false,
@@ -465,18 +465,19 @@ local Sound
 local Volume = 1
 local Pitch = 1
 local LoopMusic = false
-local EchoEnabled = false
-local EchoEffect
+local ReverbEnabled = false
+local ReverbEffect
 
 local function playRandomMusic()
     if not Sound or not Sound:IsDescendantOf(game.Workspace) then
         Sound = Instance.new("Sound", game.Workspace)
-        EchoEffect = Instance.new("EchoSoundEffect", Sound)
-        EchoEffect.Enabled = EchoEnabled
-        EchoEffect.Delay = 0.5
-        EchoEffect.Feedback = 0.5
-        EchoEffect.WetLevel = 0.5
-        EchoEffect.DryLevel = 0
+        ReverbEffect = Instance.new("ReverbSoundEffect", Sound)
+        ReverbEffect.Enabled = ReverbEnabled
+        ReverbEffect.DecayTime = 3
+        ReverbEffect.Density = 0.8
+        ReverbEffect.Diffusion = 0.8
+        ReverbEffect.DryLevel = 0
+        ReverbEffect.WetLevel = -6
     end
     Sound.SoundId = "rbxassetid://" .. MusicIDs[math.random(1, #MusicIDs)]
     Sound.Volume = Volume
@@ -520,12 +521,12 @@ local Toggle = mTab:CreateToggle({
 })
 
 local Toggle = mTab:CreateToggle({
-    Name = "Echo Filter",
+    Name = "Reverb Effect",
     CurrentValue = false,
     Callback = function(Value)
-        EchoEnabled = Value
-        if Sound and EchoEffect then
-            EchoEffect.Enabled = EchoEnabled
+        ReverbEnabled = Value
+        if Sound and ReverbEffect then
+            ReverbEffect.Enabled = ReverbEnabled
         end
     end,
 })
