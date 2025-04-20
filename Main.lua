@@ -264,79 +264,146 @@ local Section = pTab:CreateSection("Player Section")
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+local Humanoid = Character:WaitForChild("Humanoid")
 
 local inputText = ""
 local currentTween = nil
-local tweenSpeed = 10
+local tweenSpeed = 16
+local hoverHeight = 5
+local isTweening = false
+
+HumanoidRootPart.Anchored = false
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+bodyVelocity.Parent = HumanoidRootPart
 
 local function findPlayerByShortName(partialName)
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player.Name:lower():sub(1, #partialName) == partialName:lower() then
-			return player
-		end
-	end
-	return nil
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Name:lower():sub(1, #partialName) == partialName:lower() then
+            return player
+        end
+    end
+    return nil
+end
+
+local function maintainHover()
+    local rayOrigin = HumanoidRootPart.Position
+    local rayDirection = Vector3.new(0, -10, 0)
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterDescendantsInstances = {Character}
+    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+    
+    local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+    local targetY = hoverHeight
+    
+    if raycastResult then
+        targetY = raycastResult.Position.Y + hoverHeight
+    end
+    
+    local currentY = HumanoidRootPart.Position.Y
+    local velocityY = (targetY - currentY) * 10
+    bodyVelocity.Velocity = Vector3.new(0, velocityY, 0)
+end
+
+local function stopTween()
+    if currentTween then
+        currentTween:Cancel()
+        currentTween = nil
+    end
+    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    isTweening = false
 end
 
 local Input = pTab:CreateInput({
-	Name = "Teleport Player",
-	CurrentValue = "",
-	PlaceholderText = "Enter Username",
-	RemoveTextAfterFocusLost = false,
-	Callback = function(text)
-		inputText = text
-	end,
+    Name = "Teleport Player",
+    CurrentValue = "",
+    PlaceholderText = "Enter Username",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(text)
+        inputText = text
+    end,
 })
 
 local Button = pTab:CreateButton({
-	Name = "Teleport",
-	Callback = function()
-		local targetPlayer = findPlayerByShortName(inputText)
-		if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			local targetHRP = targetPlayer.Character.HumanoidRootPart
-			Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-			Character:WaitForChild("HumanoidRootPart").CFrame = targetHRP.CFrame + Vector3.new(0, 3, 0)
-		end
-	end,
+    Name = "Teleport",
+    Callback = function()
+        local targetPlayer = findPlayerByShortName(inputText)
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local targetHRP = targetPlayer.Character.HumanoidRootPart
+            Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+            HumanoidRootPart.CFrame = CFrame.new(targetHRP.Position + Vector3.new(0, hoverHeight, 0))
+            maintainHover()
+        end
+    end,
 })
 
+local connection
 local Toggle = pTab:CreateToggle({
-	Name = "Tween to Player",
-	CurrentValue = false,
-	Callback = function(isOn)
-		if isOn then
-			local targetPlayer = findPlayerByShortName(inputText)
-			if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-				local targetHRP = targetPlayer.Character.HumanoidRootPart
-				local distance = (targetHRP.Position - HumanoidRootPart.Position).Magnitude
-				local duration = distance / math.clamp(tweenSpeed, 1, 100)
-				local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-				local goal = { CFrame = targetHRP.CFrame + Vector3.new(0, 3, 0) }
-				currentTween = TweenService:Create(HumanoidRootPart, tweenInfo, goal)
-				currentTween:Play()
-			end
-		else
-			if currentTween then
-				currentTween:Cancel()
-				currentTween = nil
-			end
-		end
-	end,
+    Name = "Tween to Player",
+    CurrentValue = false,
+    Callback = function(isOn)
+        if isOn then
+            local targetPlayer = findPlayerByShortName(inputText)
+            if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local targetHRP = targetPlayer.Character.HumanoidRootPart
+                isTweening = true
+                
+                connection = RunService.Heartbeat:Connect(function()
+                    if not isTweening then return end
+                    maintainHover()
+                    
+                    local distance = (targetHRP.Position - HumanoidRootPart.Position).Magnitude
+                    local duration = distance / math.clamp(tweenSpeed, 1, 1000)
+                    local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+                    local goal = { CFrame = CFrame.new(targetHRP.Position + Vector3.new(0, hoverHeight, 0)) }
+                    
+                    if currentTween then
+                        currentTween:Cancel()
+                    end
+                    
+                    currentTween = TweenService:Create(HumanoidRootPart, tweenInfo, goal)
+                    currentTween:Play()
+                end)
+            else
+                Toggle:Set(false)
+            end
+        else
+            stopTween()
+            if connection then
+                connection:Disconnect()
+                connection = nil
+            end
+        end
+    end,
 })
 
 local Slider = pTab:CreateSlider({
-	Name = "Tween Speed",
-	Range = {1, 1000},
-	Increment = 1,
-	Suffix = "Speed",
-	CurrentValue = 16,
-	Callback = function(Value)
-		tweenSpeed = Value
-	end,
+    Name = "Tween Speed",
+    Range = {1, 1000},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = 16,
+    Callback = function(Value)
+        tweenSpeed = Value
+    end,
 })
+
+LocalPlayer.CharacterAdded:Connect(function(newCharacter)
+    Character = newCharacter
+    HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+    Humanoid = Character:WaitForChild("Humanoid")
+    bodyVelocity.Parent = HumanoidRootPart
+    stopTween()
+    if connection then
+        connection:Disconnect()
+        connection = nil
+    end
+end)
 
 local Section = pTab:CreateSection("Slider Section")
 
