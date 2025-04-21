@@ -388,7 +388,7 @@ local Toggle = pTab:CreateToggle({
    Duration = 5,
    Image = 119663846201777,
 })
-                Toggle:SetValue(false)
+                Toggle:Set(false)
             end
         else
             isTweening = false
