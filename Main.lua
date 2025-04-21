@@ -274,7 +274,7 @@ local inputText = ""
 local currentTween = nil
 local tweenSpeed = 16
 local isTweening = false
-local MIN_DISTANCE = 00
+local MIN_DISTANCE = 2
 
 local tweenCache = {}
 
@@ -302,7 +302,7 @@ local function getTargetHRP(targetPlayer)
     return nil
 end
 
-local function createFollowTween(targetHRP)
+local function createFollowTween(targetHRP, toggle)
     if not targetHRP or isTweening then return end
     
     isTweening = true
@@ -313,6 +313,7 @@ local function createFollowTween(targetHRP)
         if distance <= MIN_DISTANCE then
             isTweening = false
             if connection then connection:Disconnect() end
+            toggle:SetValue(false)
             return
         end
 
@@ -360,7 +361,12 @@ local Button = pTab:CreateButton({
             HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
             HumanoidRootPart.CFrame = targetHRP.CFrame + Vector3.new(0, 3, 0)
         else
-            warn("Target player not found or invalid")
+            Rayfield:Notify({
+   Title = "Celvyn Notification.",
+   Content = "Target player not found or invalid.",
+   Duration = 5,
+   Image = 119663846201777,
+})
         end
     end,
 })
@@ -374,10 +380,15 @@ local Toggle = pTab:CreateToggle({
             local targetHRP = getTargetHRP(targetPlayer)
             
             if targetHRP then
-                createFollowTween(targetHRP)
+                createFollowTween(targetHRP, Toggle)
             else
-                warn("Target player not found or invalid")
-                Toggle:Set(false)
+                Rayfield:Notify({
+   Title = "Celvyn Notification.",
+   Content = "Target player not found or invalid.",
+   Duration = 5,
+   Image = 119663846201777,
+})
+                Toggle:SetValue(false)
             end
         else
             isTweening = false
@@ -411,7 +422,7 @@ LocalPlayer.CharacterAdded:Connect(function(newChar)
         local targetPlayer = findPlayerByShortName(inputText)
         local targetHRP = getTargetHRP(targetPlayer)
         if targetHRP then
-            createFollowTween(targetHRP)
+            createFollowTween(targetHRP, Toggle)
         end
     end
 end)
