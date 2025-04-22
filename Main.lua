@@ -12,13 +12,13 @@ Rayfield:Notify({
 })
 
 local Window = Rayfield:CreateWindow({
-   Name = "Celvyn - Beta",
+   Name = "Celvyn | Beta",
    Icon = 119663846201777,
-   LoadingTitle = "Rayfield Interface Suite",
-   LoadingSubtitle = "by Sirius",
+   LoadingTitle = "Celvyn",
+   LoadingSubtitle = "by @.03cc",
    Theme = "Default",
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false,
+   DisableRayfieldPrompts = true,
+   DisableBuildWarnings = true,
    ConfigurationSaving = {
       Enabled = false,
       FolderName = nil,
