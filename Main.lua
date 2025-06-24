@@ -4,6 +4,48 @@ task.wait(0.6)
 
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/main/source.lua'))()
 
+local t = {
+    TextColor = Color3.fromRGB(200, 200, 200),
+
+    Background = Color3.fromRGB(5, 5, 5),
+    Topbar = Color3.fromRGB(8, 8, 8),
+    Shadow = Color3.fromRGB(0, 0, 0),
+
+    NotificationBackground = Color3.fromRGB(10, 10, 10),
+    NotificationActionsBackground = Color3.fromRGB(120, 120, 120),
+
+    TabBackground = Color3.fromRGB(15, 15, 15),
+    TabStroke = Color3.fromRGB(20, 20, 20),
+    TabBackgroundSelected = Color3.fromRGB(30, 30, 30),
+    TabTextColor = Color3.fromRGB(180, 180, 180),
+    SelectedTabTextColor = Color3.fromRGB(240, 240, 240),
+
+    ElementBackground = Color3.fromRGB(10, 10, 10),
+    ElementBackgroundHover = Color3.fromRGB(15, 15, 15),
+    SecondaryElementBackground = Color3.fromRGB(5, 5, 5),
+    ElementStroke = Color3.fromRGB(25, 25, 25),
+    SecondaryElementStroke = Color3.fromRGB(20, 20, 20),
+
+    SliderBackground = Color3.fromRGB(30, 100, 170),
+    SliderProgress = Color3.fromRGB(30, 100, 170),
+    SliderStroke = Color3.fromRGB(50, 150, 230),
+
+    ToggleBackground = Color3.fromRGB(10, 10, 10),
+    ToggleEnabled = Color3.fromRGB(0, 100, 160),
+    ToggleDisabled = Color3.fromRGB(60, 60, 60),
+    ToggleEnabledStroke = Color3.fromRGB(0, 130, 210),
+    ToggleDisabledStroke = Color3.fromRGB(90, 90, 90),
+    ToggleEnabledOuterStroke = Color3.fromRGB(70, 70, 70),
+    ToggleDisabledOuterStroke = Color3.fromRGB(40, 40, 40),
+
+    DropdownSelected = Color3.fromRGB(15, 15, 15),
+    DropdownUnselected = Color3.fromRGB(10, 10, 10),
+
+    InputBackground = Color3.fromRGB(10, 10, 10),
+    InputStroke = Color3.fromRGB(30, 30, 30),
+    PlaceholderColor = Color3.fromRGB(120, 120, 120)
+}
+
 Rayfield:Notify({
    Title = "Welcome To Celvyn!",
    Content = "Thanks for using our script.",
@@ -14,31 +56,9 @@ Rayfield:Notify({
 local Window = Rayfield:CreateWindow({
    Name = "Celvyn | Beta",
    Icon = 119663846201777,
-   LoadingTitle = "Celvyn",
-   LoadingSubtitle = "by @.03cc",
-   Theme = "Default",
-   DisableRayfieldPrompts = true,
-   DisableBuildWarnings = true,
-   ConfigurationSaving = {
-      Enabled = false,
-      FolderName = nil,
-      FileName = "Big Hub"
-   },
-   Discord = {
-      Enabled = false,
-      Invite = "noinvitelink",
-      RememberJoins = false
-   },
-   KeySystem = false,
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided",
-      FileName = "Key",
-      SaveKey = true,
-      GrabKeyFromSite = false,
-      Key = {"Hello"}
-   }
+   LoadingTitle = "loading...",
+   LoadingSubtitle = "idk what to put here",
+   Theme = t
 })
 
 local Tab = Window:CreateTab("Main", "box")
@@ -111,6 +131,8 @@ local Button = Tab:CreateButton({
         createTool()
     end,
 })
+
+local Divider = Tab:CreateDivider()
 
 local Button = Tab:CreateButton({
     Name = "Shift lock",
@@ -218,7 +240,7 @@ local Button = Tab:CreateButton({
     end,
 })
 
-local Section = Tab:CreateSection("Extra Section")
+local Divider = Tab:CreateDivider()
 
 local Toggle = Tab:CreateToggle({
     Name = "Noclip",
@@ -268,6 +290,8 @@ local Toggle = Tab:CreateToggle({
 local pTab = Window:CreateTab("Player", "user")
 
 local Section = pTab:CreateSection("Player Section")
+
+local Divider = pTab:CreateDivider()
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -378,61 +402,7 @@ local Button = pTab:CreateButton({
     end,
 })
 
-local Toggle = pTab:CreateToggle({
-    Name = "Tween to Player",
-    CurrentValue = false,
-    Callback = function(isOn)
-        if isOn then
-            local targetPlayer = findPlayerByShortName(inputText)
-            local targetHRP = getTargetHRP(targetPlayer)
-            
-            if targetHRP then
-                createFollowTween(targetHRP, Toggle)
-            else
-                Rayfield:Notify({
-   Title = "Celvyn Notification.",
-   Content = "Target player not found or invalid.",
-   Duration = 5,
-   Image = 119663846201777,
-})
-                Toggle:Set(false)
-            end
-        else
-            isTweening = false
-            if currentTween then
-                currentTween:Cancel()
-                currentTween = nil
-            end
-            if tweenCache.connection then
-                tweenCache.connection:Disconnect()
-                tweenCache.connection = nil
-            end
-        end
-    end,
-})
-
-local Slider = pTab:CreateSlider({
-    Name = "Tween Speed",
-    Range = {1, 1000},
-    Increment = 1,
-    Suffix = "Speed",
-    CurrentValue = tweenSpeed,
-    Callback = function(value)
-        tweenSpeed = value
-    end,
-})
-
-LocalPlayer.CharacterAdded:Connect(function(newChar)
-    Character = newChar
-    HumanoidRootPart = newChar:WaitForChild("HumanoidRootPart")
-    if isTweening then
-        local targetPlayer = findPlayerByShortName(inputText)
-        local targetHRP = getTargetHRP(targetPlayer)
-        if targetHRP then
-            createFollowTween(targetHRP, Toggle)
-        end
-    end
-end)
+local Divider = pTab:CreateDivider()
 
 local Section = pTab:CreateSection("Slider Section")
 
@@ -478,6 +448,8 @@ local Slider = pTab:CreateSlider({
 
 local cTab = Window:CreateTab("Combat", "swords")
 
+local Divider = cTab:CreateDivider()
+
 local Section = cTab:CreateSection("Aimbot Section")
 
 local Button = cTab:CreateButton({
@@ -486,8 +458,6 @@ local Button = cTab:CreateButton({
         loadstring(game:HttpGet("https://celvyn.site/aimbot"))()
     end,
 })
-
-local Section = cTab:CreateSection("Esp Section")
 
 local Button = cTab:CreateButton({
     Name = "Celvyn esp",
@@ -514,37 +484,106 @@ local sTab = Window:CreateTab("Server", "server")
 
 local Section = sTab:CreateSection("Server Section")
 
-local Button = sTab:CreateButton({
-    Name = "Random Server Hop",
-    Callback = function()
-      loadstring(game:HttpGet('https://pastebin.com/raw/nKJ2FB1S'))()
+local Divider = sTab:CreateDivider()
+
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local selectedServerType = "Normal Server"
+
+local Dropdown = sTab:CreateDropdown({
+    Name = "Select Server Type",
+    Options = {"Small Server", "Normal Server"},
+    CurrentOption = {"Normal Server"},
+    MultipleOptions = false,
+    Flag = "ServerTypeDropdown",
+    Callback = function(Options)
+        selectedServerType = Options[1]
     end,
 })
 
+local function getServerList()
+    local servers = {}
+    local success, result = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+    if success then
+        for _, server in pairs(result.data) do
+            if server.playing < server.maxPlayers then
+                table.insert(servers, {id = server.id, players = server.playing})
+            end
+        end
+        table.sort(servers, function(a, b) return a.players < b.players end)
+    end
+    return servers
+end
+
 local Button = sTab:CreateButton({
-    Name = "low Player Server Hop",
+    Name = "Server Hop",
     Callback = function()
-      loadstring(game:HttpGet('https://pastebin.com/raw/Tbmzndze'))()
+        local servers = getServerList()
+        if #servers == 0 then
+            warn("No available servers found.")
+            return
+        end
+
+        local targetServer
+        if selectedServerType == "Small Server" then
+            targetServer = servers[1]
+        elseif selectedServerType == "Normal Server" then
+            targetServer = servers[math.floor(#servers / 2)]
+        end
+
+        if targetServer then
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, targetServer.id, LocalPlayer)
+        else
+            warn("Couldn't find a suitable server.")
+        end
     end,
 })
 
-local Button = sTab:CreateButton({
-    Name = "low Ping Server Hop",
-    Callback = function()
-     loadstring(game:HttpGet('https://pastebin.com/raw/Xvqs6paK'))()
+local Divider = sTab:CreateDivider()
+
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local selectedRejoinType = "Normal Server"
+
+local Dropdown = sTab:CreateDropdown({
+    Name = "Select Rejoin Type",
+    Options = {"Normal Server", "Private Server"},
+    CurrentOption = {"Normal Server"},
+    MultipleOptions = false,
+    Flag = "RejoinTypeDropdown",
+    Callback = function(Options)
+        selectedRejoinType = Options[1]
     end,
 })
 
 local Button = sTab:CreateButton({
     Name = "Rejoin",
     Callback = function()
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
+        if selectedRejoinType == "Normal Server" then
+            TeleportService:Teleport(game.PlaceId, LocalPlayer)
+        elseif selectedRejoinType == "Private Server" then
+            local jobId = game.JobId
+            if jobId and jobId ~= "" then
+                TeleportService:TeleportToPlaceInstance(game.PlaceId, jobId, LocalPlayer)
+            else
+                warn("Not in a private server to rejoin.")
+            end
+        end
     end,
 })
 
 local mTab = Window:CreateTab("Music", "music")
 
 local Section = mTab:CreateSection("Music Section")
+
+local Divider = mTab:CreateDivider()
 
 local function getMusicIDs()
     local musicIDs = {}
@@ -627,6 +666,8 @@ local Toggle = mTab:CreateToggle({
     end,
 })
 
+local Divider = pTab:CreateDivider()
+
 local Input = mTab:CreateInput({
     Name = "Volume",
     CurrentValue = tostring(Volume),
@@ -674,6 +715,8 @@ local Button = mTab:CreateButton({
 local sgTab = Window:CreateTab("Setting", "settings")
 
 local Section = sgTab:CreateSection("Setting Section")
+
+local Divider = sTab:CreateDivider()
 
 local Button = sgTab:CreateButton({
     Name = "Destroy Ui",
